@@ -16,7 +16,29 @@ Formátování druhého odstavce. Text text text text text text text text text t
 text
 
 \n{2}{Spring}
-Spring Framework je populární open-source aplikační rámec neboli framework (označován také jako kontejner) pro vývoj J2EE aplikací. Jádro Springu je postaveno na využití návrhového vzoru Inversion of Control a je označován jako IoC kontejner. Tento návrhový vzor funguje na principu přesunutí zodpovědnosti za vytvoření a provázání objektů z aplikace na framework. Objekty lze získat prostřednictvím vsazování závislostí, což je speciální případ Inversion of Control. Dependency Injection řeší vlastní způsob vložení objektů. Základní tři způsoby vložení objektů jsou Setter Injection, Constructor Injection a Interface Injection. Objekty vytvořené kontejnerem jsou nazývány JavaBeans. Objekty jsou frameworkem vytvořeny typicky na základě načtení konfiguračního souboru ve formátu XML, který obsahuje definice těchto Beans. Spring Framework se nezabývá řešením již vyřešených problémů. Místo toho využívá prověřených a dobře fungujících existujících open-source nástrojů, které v sobě integruje. Tím se stává jejich použití často jednodušším. Spring je modulární framework: Umožňuje využít třeba jen část, která se zrovna hodí k řešení daného problému. Účelem Springu je zjednodušení návrhu J2EE aplikací se zaměřením na architekturu aplikace (místo na technologii), na jednoduchou testovatelnost, na neinvazivnost a modulárnost.
+Spring Framework~\cite{spring-framework} (dále jen spring) je populární open-source~\cite{open-source} pro vývoj J2EE~\cite{j2ee} aplikací. Jádro springu je využívá návrhový vzor IoC (Inversion~of~Control~\cite{ioc}) a~je označován jako IoC~kontejner. Tento návrhový vzor funguje na~principu přesunutí zodpovědnosti za~vytvoření a~provázání objektů z~aplikace na~framework.
+
+Objekty lze získat prostřednictvím Dependency~Injection~\cite{dependency-injection} neboli vsazování závislostí (Obr.~\ref{fig:dependency-injection}). Jedná se o~speciální případ IoC. Dependency Injection lze realizovat třemi způsoby
+\begin{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
+	\item {Setter Injection,}
+	\item {Constructor Injection,}
+	\item {Interface Injection.}
+\end{itemize}
+
+\obr{Náhled možností dependency injection}{fig:dependency-injection}{1.0}{graphics/dependency-injection.png}
+
+Vytvářené objekty se nazývají JavaBeans~\cite{java-beans}. Ty jsou vytvářeny typicky na~základě načtení konfiguračního souboru ve~formátu XML~\cite{xml}, který obsahuje definice těchto Beans. Spring se nezabývá řešením již vyřešených problémů. Místo toho využívá prověřených a~dobře fungujících existujících open-source nástrojů, které v~sobě integruje. Tím se stává jejich použití často jednodušším. Spring je modulární framework. Umožňuje využít jen část, která se zrovna hodí k~řešení daného problému. Účelem springu je:
+\begin{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
+	\item {zjednodušení návrhu J2EE aplikací se zaměřením na~architekturu aplikace (místo na~technologie),}
+	\item {jednoduchá testovatelnost,}
+	\item {neinvazivní rozvoj a modularita.}
+\end{itemize}
 
 \n{2}{Hibernate}
 Hibernate je framework napsaný v jazyce Java, který umožňuje tzv. objektově-relační mapování (ORM). Usnadňuje řešení otázky zachování dat objektů i po ukončení běhu aplikace.Hibernate poskytuje způsob, pomocí něhož je možné zachovat stav objektů mezi dvěma spuštěnými aplikacemi. Říkáme tedy, že udržuje data persistentní. Dosahuje toho pomocí ORM, což znamená, že mapuje Javovské objekty na entity v relační databázi. K tomu používá tzv. mapovací soubory, ve kterých je popsáno, jakým způsobem se mají data z objektu transformovat do databáze a naopak a jakým způsobem se z databázových tabulek mají vytvořit objekty. Druhý způsob jak mapovat objekty je použít anotace místo mapovacích souborů. V Hibernate se tedy pracuje s běžnými business objekty, přičemž mohou být sloupce tabulky spojeny přímo s atributy objektu, nebo mohou být připojeny skrze metody get/set a metody hashCode() a equals(). Nutno podotknout, že nelze použít EJB (viz Java Bean), ale pouze klasické objekty - tzv. POJO (Plain Old Java Object). Poté co jsou objekty uložené v databázi se na ně lze dotazovat jazykem HQL (Hibernate Query Language), který je odvozen z SQL a je mu tedy velice podobný.
