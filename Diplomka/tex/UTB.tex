@@ -33,14 +33,35 @@
 \usepackage[pdftex,pdfa,hidelinks,breaklinks]{hyperref}	% vytváří křížové odkazy
 %\usepackage{multicol}	% vícesloupcová sazba
 %\usepackage{flafter}	% zajistí, aby se plovoucí objekty objevovali až za jejich umístěním v textu
-\usepackage{chngcntr}   % Umožňuje změnu nastavení číslování obrázků, tabulek i rovnic
 \usepackage{etoolbox}   % Tool-box for LaTeX programmers
 \usepackage[labelsep=space,tableposition=bottom,justification=centering]{caption} % Přenastavení popisků u figur a tabulek
 
 % ---------------------------------------------------------------------------- %
 
+
+
+%Podpora zdrojového kódu
+\usepackage[numbered]{matlab-prettifier}
+\usepackage[shorthands=off,czech]{babel}
+\usepackage[utf8]{listingsutf8}
+
+\usepackage{chngcntr}   % Umožňuje změnu nastavení číslování obrázků, tabulek i rovnic
 \usepackage{xmpincl}
 \usepackage{hyperxmp}
+
+\lstset{
+	numberbychapter=true,
+	style=Matlab-editor,
+	basicstyle=\linespread{0.8}\tiny\mlttfamily,	% Use small true type font
+	keywordstyle=[2]\color{Purple},         		% MATLAB function arguments purple
+	stringstyle=\color{Purple},             		% Strings are purple
+	tabsize=4,                              		% 5 spaces per tab	inputencoding=utf8,
+	extendedchars=\true,
+	%	inputencoding=utf8x,
+}
+
+
+\lstloadlanguages{Java, Matlab, xml}
 
 % \convertDate converts D:20080419103507+02'00' to 2008-04-19T10:35:07+02:00
 \def\convertDate{%
@@ -220,6 +241,23 @@
 	\end{figure}
 }
 
+% Styl pro zdrojový kód
+% \code{filename}{language}
+% Includes a MATLAB script.
+% The first parameter is the label, which also is the name of the script
+%   without the .m.
+% The second parameter is the optional caption.
+\def\script#1#2{
+	\begin{center}
+		\lstinputlisting[
+		caption=#1, 
+		label=#1, 
+		language=#2
+		]
+		{code/#2/#1}
+	\end{center}
+}
+
 % Styl pro tabulky
 % \tab{popisek}{label}{rozměr (0.0 - 1.0)}{definice sloupců}{obsah} 
 \def\tab#1#2#3#4#5{
@@ -297,6 +335,18 @@
 		\addcontentsline{toc}{section}{List of Tables}
 	\fi \fi
 	\listoftables
+	\clearpage
+}
+
+% Příkaz pro vysázení seznamu zdrojového kódu
+\def\seznamscript{
+	\clearpage
+	\ifczech
+	\addcontentsline{toc}{section}{Seznam zdrojového kódu}
+	\else \ifenglish
+	\addcontentsline{toc}{section}{List of Source codes}
+	\fi \fi
+	\lstlistoflistings
 	\clearpage
 }
 
@@ -577,13 +627,15 @@
 % ============================================================================ %
 % NASTAVENÍ FORMÁTU ČÍSLOVÁNÍ OBRÁZKŮ A TABULEK
 
-\def\thefigure{\arabic{figure}}      % číslování obrázků typu (y)
-\def\thetable{\arabic{table}}        % číslování tabulek typu (y)
+\def\thefigure{\arabic{figure}}      	% číslování obrázků typu (y)
+\def\thetable{\arabic{table}}        	% číslování tabulek typu (y)
+\def\thelstlisting{\arabic{lstlisting}} % číslování kódu typu (y)
 \captiondelim{. } % změníme dvoutečku za Obr/Tab za tečku
 
 % Nastavení číslování obrázků, tabulek i rovnic do formátu <číslo kapitoly>.<pořadové číslo>
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
+\AtBeginDocument{\counterwithin{lstlisting}{section}}
 \counterwithin{equation}{section}
 
 % Odsazeni popisku v seznamu obrazku a tabulek
@@ -591,6 +643,7 @@
 %{\renewcommand*\numberline[1]{Fig. \,#1\space}}
 \renewcommand*\l@figure{\@dottedtocline{1}{0em}{5.0em}}
 \renewcommand*\l@table{\@dottedtocline{1}{0em}{5.0em}}
+\renewcommand*\l@lstlisting{\@dottedtocline{1}{0em}{5.0em}}
 
 % Vynulování čítačů
 \@addtoreset{table}{section}
@@ -757,8 +810,10 @@
 		\addto\captionsczech{\renewcommand{\refname}{\MakeTextUppercase{Seznam použité literatury}}}
 		\addto\captionsczech{\renewcommand{\listfigurename}{\MakeTextUppercase{Seznam obrázků}}}
 		\addto\captionsczech{\renewcommand{\listtablename}{\MakeTextUppercase{Seznam tabulek}}}
+		\addto\captionsczech{\renewcommand{\lstlistlistingname}{\MakeTextUppercase{Seznam zdrojového kódu}}}
 		\addto\captionsczech{\renewcommand{\figurename}{Obr.}}
 		\addto\captionsczech{\renewcommand{\tablename}{Tab.}}
+		\addto\captionsczech{\renewcommand{\lstlistingname}{Kod.}}
 	\else \ifenglish
 		\usepackage[english]{babel}	
 		% Vlastni definice nazvu
