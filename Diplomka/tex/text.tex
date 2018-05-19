@@ -181,12 +181,18 @@ text
 Pro zlepšení přesnosti stavající situace informací o spoždění bylo rozhodnuto o napojení se na nové zdroje informací, které nám pomohou zpřesnit a hlavně automatizovat načítání, zpracovaní a zobrazení inforamcí o spoždění spojů.
 
 \n{2}{Připojení SŽDC api}
- Prvním z nich je datové rozhraní GRAPP, ze ktere se bude načítat zpoždění a poslední potvrzené průjezdové místo vozu kontrolním bodem. Druhým je pak datové rozhraní Informační tabule, zde se budou načítat aktuální názvy nástupišť v dané zastávce pro daný spoj. Tyto datová rozhraní spravuje společnost Oltis group a.s. , která jej provozuje pro společnost SŽDC.
+Prvním z nich je datové rozhraní GRAPP, ze ktere se bude načítat zpoždění a poslední potvrzené průjezdové místo vozu kontrolním bodem. Druhým je pak datové rozhraní Informační tabule, zde se budou načítat aktuální názvy nástupišť v dané zastávce pro daný spoj. Tyto datová rozhraní spravuje společnost Oltis group a.s. , která jej provozuje pro společnost SŽDC.
  
- \n{3}{Datové rozhraní GRAPP}
- Jako první upravíme pom.xml (Kod.~\ref{uprava-pom-szdc-position.xml}) soubor do kterého přidáme v sekci <plugin> nové údaje. Pomocí tohoto přidaného kódu pak při opětovném sestavení projektu pomocí mavenu dojde k autovygenerování komunikačních přepravek, které pak vzužijem pro načítání dat.
+\n{3}{Datové rozhraní GRAPP}
+Jako první upravíme pom.xml (Kod.~\ref{uprava-pom-szdc-position.xml}) soubor do kterého přidáme v sekci <plugin> nové údaje. Pomocí tohoto přidaného kódu pak při opětovném sestavení projektu pomocí mavenu dojde k autovygenerování komunikačních přepravek, které pak vzužijem pro načítání dat.
  
- \script{uprava-pom-szdc-position.xml}{xml}
+\script{uprava-pom-szdc-position.xml}{xml}
+
+TODO: z tohoto vytáhnout nejprve (úplně dule) celkovou vizualizaci + modely (úplně nahoře)
+\obr{Vizualizace API (getTrainPosition)}{fig:szdc-models}{1.0}{graphics/szdc-position-models.jpg}
+
+TODO: z tohodle vytáhni dva obrázky na input + output
+\obr{Vizualizace API (getTrainPosition)}{fig:szdc-position}{1.0}{graphics/szdc-position.jpg}
  
 \begin{itemize}
 	\item Tvorba Provideru (inteface, implementace)
@@ -222,6 +228,9 @@ text
 
 \n{2}{Načítaní struktury vlaku do dispečinkového systému}
 \begin{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
 	\item Tvorba Provideru (inteface, implementace)
 	\item Vytvoreni mailu pro odebírání excel souboru se strukturou vlaku rozepsanou na den
 	\item Pripojeni se na tuto mailovou adresu pomocí javamail knihovny
