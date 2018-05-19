@@ -65,11 +65,13 @@ SOAP~\cite{soap} je protokolem pro výměnu zpráv založených na~XML přes sí
 WSDL~\cite{wsdl} je jazykem pro~popis funkcí, jež nabízí tzv. webová služba, a dále pro~popis vstupů a výstupů těchto funkcí (jinými slovy, co webová služba poskytuje a jak si o~to říci). Jelikož webová služba v~principu komunikuje protokolem SOAP, WSDL zpravidla popisuje SOAP komunikaci. WSDL vychází z~formátu XML. Podporované operace a~zprávy jsou popsány abstraktně, a~potom se omezují na~konkrétní síťový protokol a formát zprávy. Z toho plyne, že WSDL popisuje veřejné rozhraní webové služby.
 
 \n{3}{SoapUI}
-SoapUI~\cite{soapui} je open source aplikace pro~testování webových služeb pro~architektury orientované na~služby (SOA~\cite{soa}) a~reprezentace státních přenosů (REST). Její funkce zahrnují kontrolu webových služeb od~provolání přes testování funkčnosti až~po~testování výsledků dotazů na~shodu s~očekávaným výsledkem.
+SoapUI~\cite{soapui} je open source aplikace pro~testování webových služeb pro~architektury orientované na~služby (SOA~\cite{soa}) a~reprezentace státních přenosů (REST). Její funkce zahrnují kontrolu webových služeb od~provolání přes~testování funkčnosti až~po~testování výsledků dotazů na~shodu s~očekávaným výsledkem.
 
 Komerční verze SoapUI~Pro, která se zaměřuje hlavně na~funkce určené ke~zvýšení produktivity, byla také vyvinuta softwarem Eviware. V~roce 2011 společnost SmartBear Software získala produkt Eviware. SoapUI byl zpočátku propuštěn do~společnosti SourceForge v~září 2005. Je to svobodný software, licencovaný na~základě podmínek veřejné licence Evropské unie. 
 
-Je postavena výhradně na~platformě Java a~používá rozhraní Swing pro~uživatelské rozhraní. To znamená, že SoapUI je multiplatformní. Dnes SoapUI podporují všechny hlavní vývojová prostředí (IDE~\cite{ide}), jako je např. IDEA, Eclipse nebo NetBeans a spousta dalších. SoapUI může testovat webové služby SOAP a REST, JMS~\cite{jms}, AMF~\cite{amf}, stejně jako volání HTTP(S) a~JDBC~\cite{jdbc}.
+Je postavena výhradně na~platformě Java a~používá rozhraní Swing pro~uživatelské rozhraní. To znamená, že~SoapUI je multiplatformní. Dnes SoapUI podporují všechny hlavní vývojová prostředí (Obr.~\ref{fig:soap-ui}) (IDE~\cite{ide}), jako je např. IDEA, Eclipse nebo NetBeans a~spousta dalších. SoapUI může testovat webové služby SOAP a REST, JMS~\cite{jms}, AMF~\cite{amf}, stejně jako volání HTTP(S) a~JDBC~\cite{jdbc}.
+
+\obr{Podporované protokoly SOAP-UI~\cite{soap-ui}}{fig:soap-ui}{0.7}{graphics/soap-ui.png}
 
 \begin{itemize}
 	\setlength{\parskip}{0pt}
@@ -95,35 +97,49 @@ Je postavena výhradně na~platformě Java a~používá rozhraní Swing pro~uži
 \end{itemize}
 
 \n{2}{REST}
-REST~\cite{rest} je architektura rozhraní, navržená pro~distribuovaná prostředí. REST navrhl a~popsal v~roce 2000 Roy Fielding (jeden ze spoluautorů protokolu HTTP~\cite{http}) v~rámci disertační práce Architectural Styles and the Design of Network-based Software Architectures~\cite{rest-publication}. Rozhraní REST je použitelné pro jednotný a snadný přístup ke zdrojům (resources). Zdrojem mohou být data, stejně jako stavy aplikace (pokud je lze popsat konkrétními daty). REST je tedy na rozdíl od známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Všechny zdroje mají vlastní identifikátor URI a REST definuje čtyři základní metody pro přístup k nim, které jsou známé pod označením CRUD, tedy vytvoření dat (Create), získání požadovaných dat (Retrieve), změnu (Update) a smazání (Delete). Tyto metody jsou implementovány pomocí
-odpovídajících metod HTTP protokolu.
+REST~\cite{rest} je architektura rozhraní, navržená pro~distribuovaná prostředí. REST navrhl a~popsal v~roce 2000 Roy Fielding (jeden ze spoluautorů protokolu HTTP~\cite{http}) v~rámci disertační práce Architectural Styles and the Design of Network-based Software Architectures~\cite{rest-publication}. Rozhraní REST je použitelné pro~jednotný a~snadný přístup ke~zdrojům (resources). Zdrojem mohou být data, stejně jako stavy aplikace (pokud je lze popsat konkrétními daty). REST je tedy na~rozdíl od~známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Všechny zdroje mají vlastní identifikátor URI a~REST definuje čtyři základní metody pro přístup k nim, které jsou známé pod označením CRUD:
+\begin{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
+	\item {\textbf{C}reate - vytvoření dat,}
+	\item {\textbf{R}etrieve - získání požadovaných dat,}
+	\item {\textbf{U}pdate - změnu,}
+	\item {\textbf{D}elete - smazání.}
+\end{itemize} 
+Tyto metody jsou implementovány pomocí odpovídajících metod HTTP protokolu.
 
 \n{3}{JSON}
-JSON je způsob zápisu dat (datový formát) nezávislý na počítačové platformě, určený pro přenos dat, která mohou být organizována v polích nebo agregována v objektech. Vstupem je libovolná datová struktura (číslo, řetězec, boolean, objekt nebo z nich složené pole), výstupem je vždy řetězec. Složitost hierarchie vstupní proměnné není teoreticky nijak omezena. Kolekce párů název/hodnota. Ta bývá v rozličných jazycích realizována jako objekt, záznam (record), struktura (struct), slovník (dictionary), hash tabulka, klíčový seznam (keyed list) nebo asociativní pole. Seřazený seznam hodnot. Ten je ve většině jazyků realizován jako pole, vektor, seznam (list) nebo posloupnost (sequence).
-Jedná se o univerzální datové struktury a v podstatě všechny moderní programovací jazyky je v nějaké formě podporují. Je tedy logické, aby na nich byl založen i na jazyce nezávislý výměnný formát.
+JSON~\cite{json} je způsob zápisu dat (datový formát) nezávislý na~počítačové platformě, určený pro~přenos dat, který může být organizován v~polích nebo agregován v~objektech. Vstupem je libovolná datová struktura (číslo, řetězec, boolean, objekt nebo z~nich složené pole), výstupem je vždy řetězec. Složitost hierarchie vstupní proměnné není teoreticky nijak omezena. 
+
+Kolekce párů \uv{název/hodnota} bývá v rozličných jazycích realizována jako objekt, záznam (record), struktura (struct), slovník (dictionary), hash tabulka, klíčový seznam (keyed list) nebo asociativní pole.
+
+Seřazený seznam hodnot je ve~většině jazyků realizován jako pole, vektor, seznam (list) nebo posloupnost (sequence).
+
+Jedná se o~univerzální datové struktury a~v~podstatě všechny moderní programovací jazyky je v~nějaké formě podporují. Je tedy logické, aby na~nich byl založen i~na~jazyce nezávislý výměnný formát.
 \begin{itemize}
-	\item Object (Objekt)je uvozen znakem { (levá složená závorka) a zakončen znakem } (pravá složená závorka). Každý název je následován znakem : (dvojtečka) a páry název/hodnota jsou pak odděleny znakem , (čárka).
-	\item Array (Pole) je seřazenou kolekcí hodnot. Začíná znakem [ (levá hranatá závorka) and končí znakem ] (pravá hranatá závorka). Hodnoty jsou odděleny znakem , (čárka).
-	\item Value (Hodnotou) rozumíme řetezec uzavřený do dvojitých uvozovek, číslo, true, false, null, objekt nebo pole.
+	\item Object (Objekt) je uvozen znakem \uv{\{} (levá složená závorka) a~zakončen znakem \uv{\}} (pravá složená závorka). Každý název je následován znakem \uv{:} (dvojtečka) a~páry \uv{název/hodnota} jsou pak odděleny znakem \uv{,} (čárka).
+	\item Array (Pole) je seřazenou kolekcí hodnot. Začíná znakem \uv{[} (levá hranatá závorka) a~končí znakem \uv{]} (pravá hranatá závorka). Hodnoty jsou odděleny znakem \uv{,} (čárka).
+	\item Value (Hodnotou) rozumíme řetězec uzavřený do~dvojitých uvozovek, číslo, true, false, null, objekt nebo pole.
 	Tyto struktury mohou být vnořovány.
-	\item String (Řetězcem) je nula nebo více znaků kódování Unicode, uzavřených do dvojitých uvozovek a využívající únikových sekvencí (escape sequence) s použitím zpětného lomítka. Znak je reprezentován jako řetězec s jediným znakem. Řetězec je velmi podobný řetězcům z jazyků C nebo Java.
-	\item Number (Číslo) je podobné číslům z jazyků C a Java. Jedinou výjimkou je, že není používán oktalový ani hexadecimální zápis.
+	\item String (Řetězcem) je nula nebo více znaků kódování Unicode, uzavřených do~dvojitých uvozovek a~využívající únikových sekvencí (escape sequence) s~použitím zpětného lomítka. Znak je reprezentován jako řetězec s~jediným znakem. Řetězec je velmi podobný řetězcům z~jazyků C nebo Java.
+	\item Number (Číslo) je podobné číslům z~jazyků C a~Java. Jedinou výjimkou je, že není používán oktalový ani hexadecimální zápis.
 \end{itemize}
 
 \n{3}{Postman}
-Postman je open source aplikace pro testování webových služeb pro architektury orentované na REST.
+Postman~\cite{postman} (Obr.~\ref{fig:postman}) je open source aplikace pro~testování webových služeb pro~architektury orientované na REST.
+
+\obr{Schéma užití Postman~\cite{postman}}{fig:postman}{1.0}{graphics/postman.png}
 
 \n{2}{JavaMail}
-Knihovna pro prijimani a odesilani mailu. Javamail je rozhraní API jazyka Java, které slouží k odesílání a přijímání e-mailů prostřednictvím protokolů SMTP, POP3 a IMAP. JavaMail je integrován do platformy Java EE, ale nabízí i volitelný balíček pro použití v Java SE.
+Knihovna pro~příjímání a~odesíláni mailu. Javamail~\cite{javamail} je rozhraní jazyka Java, které pracuje na~základě protokolů SMTP, POP3 a IMAP. JavaMail je integrován do~platformy Java EE, ale nabízí i~volitelný balíček pro~použití v~Java SE.
 
 \n{2}{CSV}
-CSV je jednoduchy souborový formát pro výměnu tabulkových dat.
-Soubor ve formátu CSV sestává z řádků, ve kterých jsou jednotlivé položky odděleny znakem čárka (,).
-Hodnoty položek mohou být uzavřeny do uvozovek ("), což umožňuje, aby text položky obsahoval čárku.
-Pokud text položky obsahuje uvozovky, jsou tyto zdvojeny.
+CSV~\cite{csv} je jednoduchy souborový formát pro~výměnu tabulkových dat.
+Soubor ve~formátu CSV sestává z řádků, ve~kterých jsou jednotlivé položky odděleny znakem čárka \uv{,}.Hodnoty položek mohou být uzavřeny do~uvozovek \uv{"}, což umožňuje, aby text položky obsahoval čárku. Pokud text položky obsahuje uvozovky, jsou pak zdvojeny.
 
 \n{2}{PostGIS}
-PostGIS je open source software. Jedná se o nadstavbu pro objektově-relační databázový systém PostgreSQL, která přidává podporu pro geografické objekty (tzv. geoprvky). PostGIS implementuje specifikaci „Simple Features for SQL“ konsorcia Open Geospatial Consortium.
+PostGIS~\cite{postgis} je open source software. Jedná se~o~nadstavbu pro~objektově-relační databázový systém PostgreSQL, která přidává podporu pro~geografické objekty (tzv. geoprvky). PostGIS implementuje specifikaci \uv{Simple Features for SQL} konsorcia Open Geospatial Consortium.
 
 \n{1}{Další nadpis}
 Tato sekce obsahuje ukázku vložení obrázku (Obr. \ref{fig:logo}).
