@@ -50,6 +50,8 @@ Druhý způsob jak mapovat objekty je použít anotace místo mapovacích soubor
 \n{2}{Maven}
 Apache~Maven~\cite{apache-maven} je nástroj pro správu, řízení a automatizaci buildů aplikací. Ačkoliv je možné použít tento nástroj pro projekty psané v~různých programovacích jazycích, podporován je převážně jazyk Java. Základním principem fungování Mavenu je popsání projektu pomocí POM. 
 
+\obr{Příklad integrace Maven repository~\cite{maven-repositories}}{fig:maven}{0.7}{graphics/maven-repositories.png}
+
 Tento model popisuje softwarový projekt nejen z pohledu jeho zdrojového kódu, ale včetně závislostí na externích knihovnách, popisu procesu buildování a~různých funkcí s~tím spojených (jako je spouštění testů, sbírání informací o zdrojových kódech a podobně). Maven sám je postaven na~modulární architektuře a funguje na~principu volání jednotlivých pluginů. Maven sám pouze obstarává dodání a spuštění nadefinovaných pluginů. Maven nemá žádné vlastní grafické uživatelské rozhraní a běží pouze na příkazové řádce a pluginy tak mohou využívat všechny nástroje, které dokáží komunikovat pomocí standardních vstupů. 
 
 \textbf{Project Object Model koncept popisu projektu jako objektu.} Za~tímto účelem je definovaná jednoduchá XML struktura, která definuje jednotlivé části projektu a jeho závislosti na~externích knihovnách a nástrojích. Současně je možné definovat konstanty, které pak mohou využít jednotlivé pluginy. Tento XML dokument se nachází v~kořenovém adresáři projektu a je pojmenován pom.xml. Pokud je projekt složen z více dílčích projektů nebo modulů, každý z~nich má pak svůj vlastní pom.xml soubor, který dědí vlastnosti od nadřazeného souboru a může přidávat další položky. Díky této struktuře je pak možné sestavit celý projekt jediným příkazem. V pom.xml je možné u~každého projektu nadefinovat jeho závislosti na~externích knihovnách. 
@@ -182,38 +184,43 @@ Pro zlepšení přesnosti stavající situace informací o spoždění bylo rozh
 Prvním z nich je datové rozhraní GRAPP, ze ktere se bude načítat zpoždění a poslední potvrzené průjezdové místo vozu kontrolním bodem. Druhým je pak datové rozhraní Informační tabule, zde se budou načítat aktuální názvy nástupišť v dané zastávce pro daný spoj. Tyto datová rozhraní spravuje společnost Oltis group a.s. , která jej provozuje pro společnost SŽDC.
 
 \n{3}{Datové rozhraní GRAPP}
-Jako první upravíme pom.xml (Kod.~\ref{uprava-pom-szdc-position.xml}) soubor do kterého přidáme v sekci <plugin> nové údaje. Pomocí tohoto přidaného kódu pak při opětovném sestavení projektu pomocí mavenu dojde k autogenerování tříd, které pak využijem pro načítání dat.
- 
-\script{uprava-pom-szdc-position.xml}{xml}
- 
-Dalším krokem je tvorba service , přes kterho se budem dotazovat na datove rozhrani.
- 
-\script{SzdcPositionWSApiService.java}{Java}
- 
-Následuje tvorba interface provideru a komunikacnich prepravek.
- 
-\script{SzdcProvider.java}{Java}
- 
-Implemntace provideru a jeho metod, které budem využívat.
- 
-\script{SzdcProviderImpl.java}{Java}
- 
-Pokud mame komunikační třídu provideru implentovanu, bude potřeba vytvořit 
- 
 \begin{itemize}
-	\item Tvorba dao vrstvy pro nacitani zastvaek a spoju podle typu spojeni a doby odjezdu (hibernate)
-	\item Vytvoreni DO trid, datova struktura odpovedi  
-	\item Konvertor na tyto DO třídy
-	\item Tvorba service (inteface, implementace)
-	\item Nacitani zpozdeni jednotlivych spoju
-	\item Nacitani nazvu kolej/nastupiste podle doby prijezdu do zastvaky
-	\item Tvorba cron jobu pro tyto servicy
-\end{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
+	\item Jako první upravíme pom.xml (Kod.~\ref{uprava-pom-szdc-position.xml}) soubor do kterého doplníme novou část kodu v sekci <plugin>. Pomocí tohoto přidaného kódu pak při opětovném sestavení projektu pomocí mavenu dojde k autogenerování tříd datového rozhraní GRAPP, které pak využijem pro načítání dat.
+ 
+	\script{uprava-pom-szdc-position.xml}{xml}
+ 
+	\item Dalším krokem je tvorba service (Kod.~\ref{SzdcPositionWSApiService.java}), přes které se budem dotazovat na datové rozhraní GRAPP.
+ 
+	\script{SzdcPositionWSApiService.java}{Java}
+ 
+	\item Následuje tvorba interface provideru (Kod.~\ref{SzdcProvider.java}) a komunikačních přepravek (Obr.~\ref{fig:szdc-position-models}).
+ 
+ 	\obr{szdc-position-models}{fig:szdc-position-models}{1.0}{graphics/szdc-position-models.jpg}
+	\script{SzdcProvider.java}{Java}
+ 
+	\item Implemntace provideru a jeho metod (Kod.~\ref{SzdcProviderImpl.java}), které budem využívat.
+ 
+	\script{SzdcProviderImpl.java}{Java}
+ 
+	\item Nyní máme vše potřebné k vytvoření rozhraní (Kod.~\ref{SzdcService.java}) a implementaci service (Kod.~\ref{SzdcServiceImpl.java}) pro načítání a aktualizaci nového zdroje dat spoždění. Pro identifikaci spojení, na které je nutné se dotázat datového rozhraní a doplnit do requestu, je nutné vytvořit databázový dotaz. Ten vytoříme pomocí hibernate (Kod.~\ref{SzdcDao.java}).
+	
+	\script{SzdcDao.java}{Java}
+	\script{SzdcService.java}{Java}
+	\script{SzdcServiceImpl.java}{Java}
+	
+	\item Posledním krokem k dokončení je automatické spouštění. Pomocí CRONu vytvoříme periodické spuštění dotazu na datové rozhraní a následné uložení do databáze.
+	
+	\script{applicationContex-cron-position.xml}{xml}
+\end{itemize} 
 
 \n{3}{Datové rozhraní Informační tabule}
-text
+Další možností načítaní zdroje dat o spoždění je datové rozhraní informační tabule. Při implementaci jsem nakonec toto datové rozhraní pro načítaní spoždění nepoužily. Toto rozhraní je primárně  využito k načítaní informaci o zastávkách a nástupištích kudy spoj projíždí. Proto se přistoupilo k napojení na sluzbu polohavozu.cz.
 
 \n{2}{Připojení Polohavozu.cz}
+V první fázi byla napojena datova rozhraní od SŽDC, bohužel tyto data neobsahovala všechna potřebná data. Chybjejícím prvkem byla souřadnice GPS potřebná k určení kde se vůz se spožděním nachází.
 \begin{itemize}
 	\item Tvorba Provideru (inteface, implementace)
 	\item Pomoci Postman ziskame JSON fily ze kterych vytvorime POJO objekty
@@ -232,6 +239,9 @@ text
 
 \n{2}{Načítaní struktury vlaku do dispečinkového systému}
 \begin{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
 	\item Tvorba Provideru (inteface, implementace)
 	\item Vytvoreni mailu pro odebírání excel souboru se strukturou vlaku rozepsanou na den
 	\item Pripojeni se na tuto mailovou adresu pomocí javamail knihovny

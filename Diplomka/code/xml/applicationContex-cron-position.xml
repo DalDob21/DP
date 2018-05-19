@@ -1,0 +1,10 @@
+        <bean class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+          <property name="jobDetail">
+            <bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              <property name="targetObject" ref="szdcServiceImpl" />
+              <property name="targetMethod" value="updateDelays" />
+              <property name="concurrent" value="false" />
+            </bean>
+          </property>         
+          <property name="cronExpression" value="${szdcUpdateDelay.cronExpression}" />
+        </bean>
