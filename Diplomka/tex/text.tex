@@ -61,11 +61,11 @@ SOAP~\cite{soap} je protokolem pro výměnu zpráv založených na~XML přes sí
 WSDL~\cite{wsdl} je jazykem pro~popis funkcí, jež nabízí tzv. webová služba, a dále pro~popis vstupů a výstupů těchto funkcí (jinými slovy, co webová služba poskytuje a jak si o~to říci). Jelikož webová služba v~principu komunikuje protokolem SOAP, WSDL zpravidla popisuje SOAP komunikaci. WSDL vychází z~formátu XML. Podporované operace a~zprávy jsou popsány abstraktně, a~potom se omezují na~konkrétní síťový protokol a formát zprávy. Z toho plyne, že WSDL popisuje veřejné rozhraní webové služby.
 
 \n{3}{SoapUI}
-SoapUI je open source aplikace pro~testování webových služeb pro~architektury orientované na~služby (SOA) a reprezentace státních přenosů (REST). Její funkce zahrnují kontrolu webových služeb, vyvolání, vývoj, simulaci a výsměch, testování funkčnosti, zatížení a testování shody. 
+SoapUI~\cite{soapui} je open source aplikace pro~testování webových služeb pro~architektury orientované na~služby (SOA~\cite{soa}) a~reprezentace státních přenosů (REST). Její funkce zahrnují kontrolu webových služeb od~provolání přes testování funkčnosti až~po~testování výsledků dotazů na~shodu s~očekávaným výsledkem.
 
-Komerční verze SoapUI Pro, která se zaměřuje hlavně na funkce určené ke~zvýšení produktivity, byla také vyvinuta softwarem Eviware. V roce 2011 společnost SmartBear Software získala produkt Eviware. SoapUI byl zpočátku propuštěn do~společnosti SourceForge v září 2005. Je to svobodný software, licencovaný na základě podmínek veřejné licence Evropské unie. 
+Komerční verze SoapUI~Pro, která se zaměřuje hlavně na~funkce určené ke~zvýšení produktivity, byla také vyvinuta softwarem Eviware. V~roce 2011 společnost SmartBear Software získala produkt Eviware. SoapUI byl zpočátku propuštěn do~společnosti SourceForge v~září 2005. Je to svobodný software, licencovaný na~základě podmínek veřejné licence Evropské unie. 
 
-Je postavena výhradně na~platformě Java a používá rozhraní Swing pro~uživatelské rozhraní. To znamená, že SoapUI je multiplatformní. Dnes SoapUI podporuje i IDEA, Eclipse a NetBeans. SoapUI může testovat webové služby SOAP a REST, JMS, AMF, stejně jako volání HTTP (S) a JDBC.
+Je postavena výhradně na~platformě Java a~používá rozhraní Swing pro~uživatelské rozhraní. To znamená, že SoapUI je multiplatformní. Dnes SoapUI podporují všechny hlavní vývojová prostředí (IDE~\cite{ide}), jako je např. IDEA, Eclipse nebo NetBeans a spousta dalších. SoapUI může testovat webové služby SOAP a REST, JMS~\cite{jms}, AMF~\cite{amf}, stejně jako volání HTTP(S) a~JDBC~\cite{jdbc}.
 
 \begin{itemize}
 	\setlength{\parskip}{0pt}
@@ -89,11 +89,6 @@ Je postavena výhradně na~platformě Java a používá rozhraní Swing pro~uži
 		\item {pomalé zpracování jednotlivými systémy (složité na parsovaní a validaci).}
 	\end{itemize}
 \end{itemize}
-
-
-
-
-
 
 \n{2}{REST}
 REST je architektura rozhraní, navržená pro distribuované prostředí. REST navrhl a popsal v roce 2000 Roy Fielding (jeden ze spoluautorů protokolu http) v rámci disertační práce Architectural Styles and the Design of Network-based Software Architectures. Rozhraní REST je použitelné pro jednotný a snadný přístup ke zdrojům (resources). Zdrojem mohou být data, stejně jako stavy aplikace (pokud je lze popsat konkrétními daty). REST je tedy na rozdíl od známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Všechny zdroje mají vlastní identifikátor URI a REST definuje čtyři základní metody pro přístup k nim, které jsou známé pod označením CRUD, tedy vytvoření dat (Create), získání požadovaných dat (Retrieve), změnu (Update) a smazání (Delete). Tyto metody jsou implementovány pomocí
