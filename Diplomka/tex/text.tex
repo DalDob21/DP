@@ -179,22 +179,27 @@ Pro zlepšení přesnosti stavající situace informací o spoždění bylo rozh
 Prvním z nich je datové rozhraní GRAPP, ze ktere se bude načítat zpoždění a poslední potvrzené průjezdové místo vozu kontrolním bodem. Druhým je pak datové rozhraní Informační tabule, zde se budou načítat aktuální názvy nástupišť v dané zastávce pro daný spoj. Tyto datová rozhraní spravuje společnost Oltis group a.s. , která jej provozuje pro společnost SŽDC.
 
 \n{3}{Datové rozhraní GRAPP}
+\n{4}{Úprava pom.xml}
+je první v pořadí (Kod.~\ref{uprava-pom-szdc-position.xml}). Pom.xml je soubor do kterého doplníme novou část kodu v sekci <plugin>. Pomocí tohoto přidaného kódu pak při opětovném sestavení projektu pomocí mavenu dojde k autogenerování tříd datového rozhraní GRAPP, které pak využijem pro načítání dat.
+
+\script{uprava-pom-szdc-position.xml}{xml}
+
+Následuje tvorba interface provideru (Kod.~\ref{SzdcProvider.java}) a komunikačních přepravek (Obr.~\ref{fig:szdc-position-models}).
+ 	
+\obr{szdc-position-models}{fig:szdc-position-models}{0.9}{graphics/szdc-position-models.jpg}
+\script{SzdcProvider.java}{Java}
 \begin{itemize}
-	\setlength{\parskip}{0pt}
-	\setlength{\itemsep}{0pt}
-	\setstretch{1.05}
-	\item Jako první upravíme pom.xml (Kod.~\ref{uprava-pom-szdc-position.xml}) soubor do kterého doplníme novou část kodu v sekci <plugin>. Pomocí tohoto přidaného kódu pak při opětovném sestavení projektu pomocí mavenu dojde k autogenerování tříd datového rozhraní GRAPP, které pak využijem pro načítání dat.
- 
-	\script{uprava-pom-szdc-position.xml}{xml}
+ 	\setlength{\parskip}{0pt}
+ 	\setlength{\itemsep}{0pt}
+ 	\setstretch{1.05}
+
+
  
 	\item Dalším krokem je tvorba service (Kod.~\ref{SzdcPositionWSApiService.java}), přes které se budem dotazovat na datové rozhraní GRAPP.
  
 	\script{SzdcPositionWSApiService.java}{Java}
  
-	\item Následuje tvorba interface provideru (Kod.~\ref{SzdcProvider.java}) a komunikačních přepravek (Obr.~\ref{fig:szdc-position-models}).
- 
- 	\obr{szdc-position-models}{fig:szdc-position-models}{1.0}{graphics/szdc-position-models.jpg}
-	\script{SzdcProvider.java}{Java}
+	\item 
  
 	\item Implemntace provideru a jeho metod (Kod.~\ref{SzdcProviderImpl.java}), které budem využívat.
  
