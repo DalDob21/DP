@@ -174,12 +174,18 @@ text
 \cast{Projektová část}
 
 \n{1}{Připojení nových zdrojů dat}
-Soap api, rest api, javaMail, dao vrstva (hibernate), excel, csv , WSDL, JSON
+Pro zlepšení přesnosti stavající situace informací o spoždění bylo rozhodnuto o napojení se na nové zdroje informací, které nám pomohou zpřesnit a hlavně automatizovat načítání, zpracovaní a zobrazení inforamcí o spoždění spojů.
 
 \n{2}{Připojení SŽDC api}
+ Prvním z nich je datové rozhraní GRAPP, ze ktere se bude načítat zpoždění a poslední potvrzené průjezdové místo vozu kontrolním bodem. Druhým je pak datové rozhraní Informační tabule, zde se budou načítat aktuální názvy nástupišť v dané zastávce pro daný spoj. Tyto datová rozhraní spravuje společnost Oltis group a.s. , která jej provozuje pro společnost SŽDC.
+ 
+ \n{3}{Datové rozhraní GRAPP}
+ Jako první upravýme pom.xml soubor do kterého přidáme v sekci <plugin> nové údaje. Pomocí tohoto přidaného kódu pak při opětovném sestavení projektu pomocí mavenu dojde k autovygenerování komunikačních přepravek, které pak vzužijem pro načítání dat.
+ 
+ \obr{Úprava Pom.xml}{fig:pomXMLPosition}{1.0}{graphics/pomXMLPosition.png}
+ 
 \begin{itemize}
 	\item Tvorba Provideru (inteface, implementace)
-	\item Uprava pom.xml souboru pro pripojeni na soap api (dva endpointy)
 	\item Vytvoreni wsdl factory trid, abstraktnich trid
 	\item Tvorba dao vrstvy pro nacitani zastvaek a spoju podle typu spojeni a doby odjezdu (hibernate)
 	\item Vytvoreni DO trid, datova struktura odpovedi  

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://provoz.szdc.cz/tabulews" xmlns:s1="http://provoz.szdc.cz/tabule/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://provoz.szdc.cz/tabulews" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://provoz.szdc.cz/tabulews">
+      <s:import namespace="http://provoz.szdc.cz/tabule/" />
+      <s:element name="GetStationList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_request" type="tns:RequestStationsList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RequestStationsList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MessageHeader" type="tns:MessageHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="tns:User" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MessageNumber" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MessageDateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="User">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Login" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetStationListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStationListResult" type="tns:ResponseStationsList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResponseStationsList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MessageHeader" type="tns:MessageHeader" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Station" type="tns:Station" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s1:StatusList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Station">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StationName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SR70" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdatedArrival" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="UpdatedDeparture" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetInformationPanels">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_request" type="tns:RequestInformationPanel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RequestInformationPanel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MessageHeader" type="tns:MessageHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="tns:User" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="StationInfoPanelIdent" type="tns:StationInfoPanelIdent" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="StationInfoPanelIdent">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SR70" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Departure" type="s1:DepartureArrival" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetInformationPanelsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInformationPanelsResult" type="tns:ResponseInformationPanel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResponseInformationPanel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MessageHeader" type="tns:MessageHeader" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="View" type="tns:View" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s1:StatusList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="View">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Head" type="tns:Head" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Design" type="tns:Design" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Head">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="SR70" type="s:int" use="required" />
+            <s:attribute name="Pl" type="s:boolean" use="required" />
+            <s:attribute name="Tr" type="s:boolean" use="required" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="Design">
+        <s:sequence>
+          <s:choice minOccurs="0" maxOccurs="unbounded">
+            <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Train" type="tns:Train" />
+          </s:choice>
+        </s:sequence>
+        <s:attribute name="Departure" type="s:boolean" use="required" />
+        <s:attribute name="Valid" type="s:boolean" use="required" />
+      </s:complexType>
+      <s:complexType name="Train">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="tns:TrainCompany" />
+          <s:element minOccurs="0" maxOccurs="1" name="Time" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Line" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Delay" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Destination" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Direction" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Platform" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Track" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TrainCompany">
+        <s:simpleContent>
+          <s:extension base="s:string">
+            <s:attribute name="Id" type="s:string" />
+          </s:extension>
+        </s:simpleContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Station" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://provoz.szdc.cz/tabule/">
+      <s:simpleType name="StatusList">
+        <s:restriction base="s:string">
+          <s:enumeration value="OK" />
+          <s:enumeration value="BadUserOrPassword" />
+          <s:enumeration value="CoreApplicationOffline" />
+          <s:enumeration value="UnknownError" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="DepartureArrival">
+        <s:restriction base="s:string">
+          <s:enumeration value="Departure" />
+          <s:enumeration value="Arrival" />
+          <s:enumeration value="Both" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetStationListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStationList" />
+  </wsdl:message>
+  <wsdl:message name="GetStationListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStationListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInformationPanelsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInformationPanels" />
+  </wsdl:message>
+  <wsdl:message name="GetInformationPanelsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInformationPanelsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DataSoap">
+    <wsdl:operation name="GetStationList">
+      <wsdl:input message="tns:GetStationListSoapIn" />
+      <wsdl:output message="tns:GetStationListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInformationPanels">
+      <wsdl:input message="tns:GetInformationPanelsSoapIn" />
+      <wsdl:output message="tns:GetInformationPanelsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DataSoap" type="tns:DataSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetStationList">
+      <soap:operation soapAction="http://provoz.szdc.cz/tabulews/GetStationList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInformationPanels">
+      <soap:operation soapAction="http://provoz.szdc.cz/tabulews/GetInformationPanels" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DataSoap12" type="tns:DataSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetStationList">
+      <soap12:operation soapAction="http://provoz.szdc.cz/tabulews/GetStationList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInformationPanels">
+      <soap12:operation soapAction="http://provoz.szdc.cz/tabulews/GetInformationPanels" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Data">
+    <wsdl:port name="DataSoap" binding="tns:DataSoap">
+      <soap:address location="http://provoz.szdc.cz/tabulews/data.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DataSoap12" binding="tns:DataSoap12">
+      <soap12:address location="http://provoz.szdc.cz/tabulews/data.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://provoz.szdc.cz/grappws/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://provoz.szdc.cz/grappws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://provoz.szdc.cz/grappws/">
+      <s:element name="GetTrainPosition">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_request" type="tns:TrainRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TrainRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MessageHeader" type="tns:MessageHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="tns:User" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastUpdate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RU" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MessageHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MessageNumber" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MessageDateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="User">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Login" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTrainPositionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTrainPositionResult" type="tns:TrainResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TrainResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MessageHeader" type="tns:MessageHeader" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Train" type="tns:Train" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:StatusList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Train">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Number" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PNumber" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Public" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="TRID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FPoint" type="tns:TrainFPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="LPoint" type="tns:TrainLPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastConfirmedPoint" type="tns:TrainLastConfirmedPoint" />
+          <s:element minOccurs="0" maxOccurs="1" name="RU" type="tns:TrainRU" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TrainFPoint">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SR70" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="StationName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TrainLPoint">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SR70" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="StationName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TrainLastConfirmedPoint">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SR70" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="StationName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Arrival" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Planned" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Real" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Delay" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Diversion" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Substitution" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TrainRU">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UICCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RUName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="StatusList">
+        <s:restriction base="s:string">
+          <s:enumeration value="OK" />
+          <s:enumeration value="BadUserOrPassword" />
+          <s:enumeration value="CoreApplicationOffline" />
+          <s:enumeration value="UnknownError" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetTrainPositionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTrainPosition" />
+  </wsdl:message>
+  <wsdl:message name="GetTrainPositionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTrainPositionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TrainPositionSoap">
+    <wsdl:operation name="GetTrainPosition">
+      <wsdl:input message="tns:GetTrainPositionSoapIn" />
+      <wsdl:output message="tns:GetTrainPositionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TrainPositionSoap" type="tns:TrainPositionSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTrainPosition">
+      <soap:operation soapAction="http://provoz.szdc.cz/grappws/GetTrainPosition" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TrainPositionSoap12" type="tns:TrainPositionSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTrainPosition">
+      <soap12:operation soapAction="http://provoz.szdc.cz/grappws/GetTrainPosition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TrainPosition">
+    <wsdl:port name="TrainPositionSoap" binding="tns:TrainPositionSoap">
+      <soap:address location="http://provoz.szdc.cz/grappnv/trainposition.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TrainPositionSoap12" binding="tns:TrainPositionSoap12">
+      <soap12:address location="http://provoz.szdc.cz/grappnv/trainposition.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
