@@ -4,11 +4,14 @@
 
 % ============================================================================ %
 \nn{Úvod}
-Analyzujte požadavky dispečinkového systému na modul zpoždění.
-Navrhněte technické řešení pro výpočet zpoždění.
-Implementujte ukládání naměřených hodnot do databáze.
-Realizujte vizualizaci spoje na trase.
-Vytvořte webové služby pro přístup třetích stran k údajům o zpoždění.
+Tato diplomová práce je zaměřena na požadavky dispečinkového systému a to na modul zpoždění.
+
+V teoretické části jsem popsal s jakými prostředky jsem pracoval a jaké prostředky jsem použil pro vývoj.
+
+V analytické části ve třetí kapitole jsem popsal systém diferenční analýzou. V dalších podkapitolách je popsán současný stav a nový návrh vylepšení stávajícího modulu zpoždění. Jsou zde návrhy variant cílového stavu, jejich vyhodnocení a výběr nejvhodnějšího z nich.Ve čtvrté kapitole je uveden návrh technického řešení pro výpočet zpoždění.
+
+V projektové části, v páté kapitole, uvádím postup prací připojení na datová rozhraní.
+Šestá kapitola obsahuje popis distribuce zpoždění.
 
 
 % ============================================================================ %
@@ -180,8 +183,6 @@ Cílem analýzy tedy je:
 \end{itemize}
 Analýza by měla postupovat od globálního pohledu k potřebným detailům.
 
-\obr{Pohled L1 na současnou HW architekturu}{fig:HWpohled}{1.0}{graphics/HWpohled.png}
-
 \n{1}{Diferenční analýza}
 
 \n{2}{Popis stávajícího stavu}
@@ -192,6 +193,9 @@ Všechny tyto možnosti ukládání dat o spoždění jsou auditovány a je mož
 
 \obr{Audit zpoždění}{fig:auditDelay}{0.45}{graphics/auditDelay.png}
 
+\n{3}{L1 pohled}
+\obr{Pohled L1 na současnou HW architekturu}{fig:HWpohled}{1.0}{graphics/HWpohled.png}
+
 \n{2}{Popis plánovaného stavu}
 Autobusy a vlaky (vagony) budou vybaveny zařízením na monitoring polohy (GPS).
 Souradnice budou odeslány a zpracovány na sběrném serveru. Tyto pak budou vystaveny třetím stranám.
@@ -199,6 +203,7 @@ Napojení nového zdroje informací o zpoždění (SŽDC). Napojení nového zdr
 
 \obr{Funkční požadavky}{fig:funkcniPozadavky}{1.0}{graphics/funkcniPozadavky.png}
 \obr{Nefunkční požadavky}{fig:nefunkcniPozadavky}{0.7}{graphics/nefunkcniPozadavky.png}
+\obr{Případy užití}{fig:useCase}{1.0}{graphics/useCase.png}
 
 \n{2}{Určení rozdílu (mezery) mezi stávajícím a cílovým stavem}
 Chybí napojeni na rozhrani SŽDC (GRAPP a Informační Tabule). Napojení na server Polohavozu.cz k načítaní GPS souřadnic. Načítaní struktury vlakových spojení. Doplnit nové funkce pro distribuci zpoždění.
@@ -207,9 +212,6 @@ Chybí napojeni na rozhrani SŽDC (GRAPP a Informační Tabule). Napojení na se
 text
 
 \n{2}{Zhodnocení variant a výběr nevhodnější z nich}
-text
-
-\n{2}{V případě potřeby se celý postup opakuje, dokud není dosaženo cílového stavu}
 text
 
 \n{2}{Popis stavu po změnach}
@@ -360,7 +362,7 @@ text
 text
 % ============================================================================ %
 \nn{Závěr}
-Text závěru
+Cílem této diplomové práce bylo analyzovat stávající řešení dipečinkového systému. Navrhnout nová rozšíření variant již existujícího modulu zpoždění
 
 
 % ============================================================================ %
