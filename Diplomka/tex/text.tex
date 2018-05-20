@@ -185,23 +185,20 @@ Analýza by měla postupovat od globálního pohledu k potřebným detailům.
 \n{1}{Diferenční analýza}
 
 \n{2}{Popis stávajícího stavu}
-Stavajici system je založený na komunikaci pomocí zasílání SMS mezi obsluhou vozu (řidič nebo steward) a dispečerem (systém). SMS mají pevnou základní strukturu a zpracovávají se pomocí služby SMS parser, které si v zaslané SMS vybere pevnou strukturu odpovídající spoždění (Delay:10). Dále je možné spoždění přímo zadat do systému (Obr.~\ref{fig:addDelay}).
-\obr{vlkádání zpoždění}{fig:addDelay}{0.8}{graphics/addDelay.png}
+Stavajici system je založený na komunikaci pomocí zasílání SMS mezi obsluhou vozu (řidič nebo steward) a dispečerem (systém). SMS mají pevnou základní strukturu a do systému jsou napojeny pomocí SMS brány (Gateway). Dále je možné spoždění přímo zadat do systému (Obr.~\ref{fig:addDelay}).
+\obr{Vlkádání zpoždění v administratorském systému}{fig:addDelay}{0.7}{graphics/addDelay.png}
 
 Všechny tyto možnosti ukládání dat o spoždění jsou auditovány a je možnost zobrazovat jejich historii (Obr.~\ref{fig:auditDelay}).
 
-\obr{audit zpoždění}{fig:auditDelay}{0.4}{graphics/auditDelay.png}
+\obr{Audit zpoždění}{fig:auditDelay}{0.45}{graphics/auditDelay.png}
 
-\n{2}{Stanovení cílů (popis cílového stavu)}
-\begin{itemize}
-	\setlength{\parskip}{0pt}
-	\setlength{\itemsep}{0pt}
-	\setstretch{1.05}
-	\item Automatizovat načítání dat o zpoždění
-	\item Automatizovat načítání informací o zastávkách
-	\item Načítat polohu vozů
-	\item Zpřístupnit informace o zpoždění
-\end{itemize}
+\n{2}{Popis plánovaného stavu}
+Autobusy a vlaky (vagony) budou vybaveny zařízením na monitoring polohy (GPS).
+Souradnice budou odeslány a zpracovány na sběrném serveru. Tyto pak budou vystaveny třetím stranám.
+Napojení nového zdroje informací o zpoždění (SŽDC). Napojení nového zdroje informací o zastávkách a stanicích (SŽDC). Vytvořit webové rozhraní pro distribuci infomací o zpoždění.
+
+\obr{Funkční požadavky}{fig:funkcniPozadavky}{1.0}{graphics/funkcniPozadavky.png}
+\obr{Nefunkční požadavky}{fig:nefunkcniPozadavky}{0.7}{graphics/nefunkcniPozadavky.png}
 
 \n{2}{Určení rozdílu (mezery) mezi stávajícím a cílovým stavem}
 text
@@ -246,7 +243,7 @@ Prvním z~nich je datové rozhraní GRAPP~(Obr.~\ref{fig:grapp}), ze které se~b
 \n{3}{Datové rozhraní GRAPP}
 
 \n{4}{Informační systém GRAPP}
-, který vlastní společnost SŽDC, státní organizace (dále jen SŽDC), poskytuje datové rozhraní formou webové služby pro další systémy (poskytování dat z informačního systému GRAPP třetím stranám). Aplikace třetích stran se mohou dotazovat do informačního systému GRAPP na aktuální data týkající se polohy vlaků veřejné osobní dopravy, respektive jejich poslední potvrzené polohy, na dopravní síti SŽDC včetně doplňujících údajů.
+, který vlastní společnost SŽDC, státní organizace (dále jen SŽDC), poskytuje datové rozhraní formou webové služby pro další systémy (poskytování dat z informačního systému GRAPP třetím stranám). Aplikace třetích stran se mohou dotazovat do informačního systému GRAPP na~aktuální data týkající se polohy vlaků veřejné osobní dopravy, respektive jejich poslední potvrzené polohy, na dopravní síti SŽDC včetně doplňujících údajů.
 
 \n{4}{Úprava pom.xml}
 je první v~pořadí (Kod.~\ref{uprava-pom-szdc-position.xml}). Pom.xml je soubor, do~kterého doplníme novou část kódu v~sekci <plugin>. Pomocí tohoto přidaného kódu pak~při~opětovném sestavení projektu (s~použitím Mavenu) dojde k~autogenerování tříd datového rozhraní GRAPP, které pak~využijeme pro~načítání dat.
