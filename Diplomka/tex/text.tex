@@ -15,7 +15,7 @@ Vytvořte webové služby pro přístup třetích stran k údajům o zpoždění
 \cast{Teoretická část}
 
 \n{1}{Vývojové nástroje, protokoly a aplikace}
-Pro vývoj na této diplomové práci bude použito mnoho různých framworků, komunikačních protokolů a jejich znalost je klíčová k úspěšnému dokončení projektu.  
+Pro~vývoj na~této diplomové práci bude použito mnoho různých framworků, komunikačních protokolů a~jejich znalost je klíčová k~úspěšnému dokončení projektu.  
 \begin{itemize}
 	\setlength{\parskip}{0pt}
 	\setlength{\itemsep}{0pt}
@@ -34,7 +34,7 @@ Pro vývoj na této diplomové práci bude použito mnoho různých framworků, 
 	\item {PostGIS}
 \end{itemize}
 \n{2}{Spring}
-Spring Framework~\cite{spring-framework} (dále jen spring) je populární open-source~\cite{open-source} pro vývoj J2EE~\cite{j2ee} aplikací. Jádro springu~\cite{spring-in-action} je využívá návrhový vzor IoC (Inversion~of~Control~\cite{ioc}) a~je označován jako IoC~kontejner. Tento návrhový vzor funguje na~principu přesunutí zodpovědnosti za~vytvoření a~provázání objektů z~aplikace na~framework.
+Spring Framework~\cite{spring-framework} (dále jen spring) je populární open-source~\cite{open-source} pro~vývoj J2EE~\cite{j2ee} aplikací. Jádro springu~\cite{spring-in-action} je využívá návrhový vzor IoC (Inversion~of~Control~\cite{ioc}) a~je označován jako IoC~kontejner. Tento návrhový vzor funguje na~principu přesunutí zodpovědnosti za~vytvoření a~provázání objektů z~aplikace na~framework.
 
 Objekty lze získat prostřednictvím Dependency~Injection~\cite{dependency-injection} neboli vsazování závislostí (Obr.~\ref{fig:dependency-injection}). Jedná se o~speciální případ IoC. Dependency Injection lze realizovat třemi způsoby
 \begin{itemize}
@@ -58,37 +58,37 @@ Vytvářené objekty se nazývají JavaBeans~\cite{java-beans}. Ty jsou vytvář
 \end{itemize}
 
 \n{2}{Hibernate}
-Hibernate~framework~\cite{hibernate-framework} je napsaný v~jazyce Java~\cite{java}, který umožňuje tzv. objektově-relační mapování (ORM~\cite{orm}). Usnadňuje řešení otázky zachování dat objektů i~po~ukončení běhu aplikace.Hibernate poskytuje způsob, pomocí něhož je možné zachovat stav objektů mezi dvěma spuštěnými aplikacemi. Říkáme tedy, že udržuje data persistentní. Dosahuje toho pomocí ORM, což znamená, že mapuje Javovské objekty na entity v~relační databázi. K~tomu používá tzv. mapovací soubory, ve~kterých je popsáno, jakým způsobem se mají data z~objektu transformovat do~databáze a~naopak, a~jakým způsobem se z~databázových tabulek mají vytvořit objekty (Obr.~\ref{fig:hibernate-diagram}).
+Hibernate~framework~\cite{hibernate-framework} je napsaný v~jazyce Java~\cite{java}, který umožňuje tzv. objektově-relační mapování (ORM~\cite{orm}). Usnadňuje řešení otázky zachování dat objektů i~po~ukončení běhu aplikace.Hibernate poskytuje způsob, pomocí něhož je možné zachovat stav objektů mezi dvěma spuštěnými aplikacemi. Říkáme tedy, že udržuje data persistentní. Dosahuje toho pomocí ORM, což znamená, že mapuje Javovské objekty na~entity v~relační databázi. K~tomu používá tzv. mapovací soubory, ve~kterých je popsáno, jakým způsobem se mají data z~objektu transformovat do~databáze a~naopak, a~jakým způsobem se z~databázových tabulek mají vytvořit objekty (Obr.~\ref{fig:hibernate-diagram}).
 
 \obr{Příklad integrace Hibernate do projektu~\cite{hibernate-tutorial}} {fig:hibernate-diagram}{0.6}{graphics/hibernate-diagram.jpg}
 
-Druhý způsob jak mapovat objekty je použít anotace místo mapovacích souborů. V Hibernate se tedy pracuje s~běžnými business objekty, přičemž mohou být sloupce tabulky spojeny přímo s~atributy objektu, nebo mohou být připojeny skrze metody get/set a metody hashCode() a equals(). Nutno podotknout, že nelze použít EJB~\cite{enterprise-javabeans} (viz JavaBean), ale pouze klasické objekty - tzv. POJO (Plain Old Java Object)~\cite{pojo}. Poté, co jsou objekty uložené v databázi, se na ně lze dotazovat jazykem HQL (Hibernate Query Language), který je odvozen z SQL~\cite{sql} a je mu tedy velice podobný.
+Druhý způsob jak mapovat objekty je použít anotace místo mapovacích souborů. V~Hibernate se tedy pracuje s~běžnými business objekty, přičemž mohou být sloupce tabulky spojeny přímo s~atributy objektu, nebo mohou být připojeny skrze metody get/set a~metody hashCode() a~equals(). Nutno podotknout, že nelze použít EJB~\cite{enterprise-javabeans} (viz JavaBean), ale pouze klasické objekty - tzv. POJO (Plain Old Java Object)~\cite{pojo}. Poté, co jsou objekty uložené v~databázi, se na~ně lze dotazovat jazykem HQL (Hibernate Query Language), který je odvozen z~SQL~\cite{sql} a~je mu tedy velice podobný.
 
 \n{2}{Maven}
-Apache~Maven~\cite{apache-maven} je nástroj pro správu, řízení a automatizaci buildů aplikací. Ačkoliv je možné použít tento nástroj pro projekty psané v~různých programovacích jazycích, podporován je převážně jazyk Java. Základním principem fungování Mavenu je popsání projektu pomocí POM. 
+Apache~Maven~\cite{apache-maven} je nástroj pro~správu, řízení a~automatizaci sestavení aplikace. Ačkoliv je možné použít tento nástroj pro projekty psané v~různých programovacích jazycích, podporován je především jazyk Java. Základním principem fungování Mavenu je popsání projektu pomocí POM. 
 
 \obr{Příklad integrace Maven repository~\cite{maven-repositories}}{fig:maven}{0.7}{graphics/maven-repositories.png}
 
-Tento model popisuje softwarový projekt nejen z pohledu jeho zdrojového kódu, ale včetně závislostí na externích knihovnách, popisu procesu buildování a~různých funkcí s~tím spojených (jako je spouštění testů, sbírání informací o zdrojových kódech a podobně). Maven~\cite{maven-lit} sám je postaven na~modulární architektuře a funguje na~principu volání jednotlivých pluginů. Maven sám pouze obstarává dodání a spuštění nadefinovaných pluginů. Maven nemá žádné vlastní grafické uživatelské rozhraní a běží pouze na příkazové řádce a pluginy tak mohou využívat všechny nástroje, které dokáží komunikovat pomocí standardních vstupů. 
+Tento model popisuje softwarový projekt nejen z~pohledu jeho zdrojového kódu, ale včetně závislostí na~externích knihovnách, popisu procesu buildování a~různých funkcí s~tím spojených (jako je spouštění testů, sbírání informací o~zdrojových kódech a~podobně). Maven~\cite{maven-lit} sám je postaven na~modulární architektuře a~funguje na~principu volání jednotlivých pluginů. Maven pouze obstarává dodání a~spuštění nadefinovaných pluginů. Maven nemá žádné vlastní grafické uživatelské rozhraní a~běží pouze na~příkazové řádce a~pluginy tak mohou využívat všechny nástroje, které dokáží komunikovat pomocí standardních vstupů. 
 
-POM soubor poskytuje všechny konfigurace pro jeden projekt. Za~tímto účelem je definovaná jednoduchá XML struktura, která definuje jednotlivé části projektu a jeho závislosti na~externích knihovnách a nástrojích. Současně je možné definovat konstanty, které pak mohou využít jednotlivé pluginy. Tento XML dokument se nachází v~kořenovém adresáři projektu a je pojmenován pom.xml. Pokud je projekt složen z více dílčích projektů nebo modulů, každý z~nich má pak svůj vlastní pom.xml soubor, který dědí vlastnosti od nadřazeného souboru a může přidávat další položky. Díky této struktuře je pak možné sestavit celý projekt jediným příkazem. V pom.xml je možné u~každého projektu nadefinovat jeho závislosti na~externích knihovnách. 
+POM soubor poskytuje všechny konfigurace pro~jeden projekt. Za~tímto účelem je definovaná jednoduchá XML struktura, která definuje jednotlivé části projektu a~jeho závislosti na~externích knihovnách a~nástrojích. Současně je možné definovat konstanty, které pak mohou využít jednotlivé pluginy. Tento XML dokument se nachází v~kořenovém adresáři projektu a~je pojmenován pom.xml. Pokud je projekt složen z~více dílčích projektů nebo modulů, každý z~nich má pak svůj vlastní pom.xml soubor, který dědí vlastnosti od~nadřazeného souboru a~může přidávat další položky. Díky této struktuře je pak možné sestavit celý projekt jediným příkazem. V~pom.xml je možné u~každého projektu nadefinovat jeho závislosti na~externích knihovnách.
 
-Jednotlivé prvky Artifacts jsou jednoznačně definovány podle atributů viz. (Kod.~\ref{pomExample.xml}). Maven pak automaticky vyhledá a nainstaluje potřebné knihovny. Samotné vyhledávání probíhá v~definovaných úložištích (repository). Kromě globální maven repository, která je veřejně přístupná, je možné založit i~další soukromá nebo firemní úložiště.
+Jednotlivé prvky Artifacts jsou jednoznačně definovány podle atributů viz. (Kod.~\ref{pomExample.xml}). Maven pak automaticky vyhledá a~nainstaluje potřebné knihovny. Samotné vyhledávání probíhá v~definovaných úložištích (repository). Kromě globální maven repository, která je veřejně přístupná, je možné založit i~další soukromá nebo firemní úložiště.
 
 \script{pomExample.xml}{xml}
 
 \n{2}{SOAP}
-SOAP~\cite{soap} je protokolem pro výměnu zpráv založených na~XML přes síť, hlavně pomocí HTTP~\cite{http}. Formát SOAP tvoří základní vrstvu komunikace mezi webovými službami a poskytuje prostředí pro~tvorbu složitější komunikace. Existuje několik různých druhů šablon pro komunikaci na protokolu SOAP. Nejznámější z nich je RPC šablona, kde jeden z~účastníků komunikace je klient a na~druhé straně je server. Server ihned odpovídá na požadavky klienta.
+SOAP~\cite{soap} je protokolem pro~výměnu zpráv založených na~XML přes~síť, hlavně pomocí HTTP~\cite{http}. Formát SOAP tvoří základní vrstvu komunikace mezi webovými službami a~poskytuje prostředí pro~tvorbu složitější komunikace. Existuje několik různých druhů šablon pro komunikaci na~protokolu SOAP. Nejznámější z~nich je RPC šablona, kde jeden z~účastníků komunikace je klient a~na~druhé straně je server. Server ihned odpovídá na~požadavky klienta.
 
 \n{3}{WSDL}
-WSDL~\cite{wsdl} je jazykem pro~popis funkcí, jež nabízí tzv. webová služba, a dále pro~popis vstupů a výstupů těchto funkcí (jinými slovy, co webová služba poskytuje a jak si o~to říci). Jelikož webová služba v~principu komunikuje protokolem SOAP, WSDL zpravidla popisuje SOAP komunikaci. WSDL vychází z~formátu XML. Podporované operace a~zprávy jsou popsány abstraktně, a~potom se omezují na~konkrétní síťový protokol a formát zprávy. Z toho plyne, že WSDL popisuje veřejné rozhraní webové služby.
+WSDL~\cite{wsdl} je jazykem pro~popis funkcí, jež nabízí tzv. webová služba, a~dále pro~popis vstupů~a výstupů těchto funkcí (jinými slovy, co~webová služba poskytuje a~jak si o~to říci). Jelikož webová služba v~principu komunikuje protokolem SOAP, WSDL zpravidla popisuje SOAP komunikaci. WSDL vychází z~formátu XML. Podporované operace a~zprávy jsou popsány abstraktně, a~potom se omezují na~konkrétní síťový protokol a~formát zprávy. Z~toho plyne, že WSDL popisuje veřejné rozhraní webové služby.
 
 \n{3}{SoapUI}
 SoapUI~\cite{soapui} je open source aplikace pro~testování webových služeb pro~architektury orientované na~služby (SOA~\cite{soa}) a~reprezentace státních přenosů (REST). Její funkce zahrnují kontrolu webových služeb od~provolání přes~testování funkčnosti až~po~testování výsledků dotazů na~shodu s~očekávaným výsledkem.
 
-Komerční verze SoapUI~Pro, která se zaměřuje hlavně na~funkce určené ke~zvýšení produktivity, byla také vyvinuta softwarem Eviware. V~roce 2011 společnost SmartBear Software získala produkt Eviware. SoapUI byl zpočátku propuštěn do~společnosti SourceForge v~září 2005. Je to svobodný software, licencovaný na~základě podmínek veřejné licence Evropské unie. 
+Komerční verze SoapUI~Pro, která se zaměřuje hlavně na~funkce určené ke~zvýšení produktivity, byla také vyvinuta softwarem Eviware. V~roce 2011 společnost SmartBear Software získala produkt Eviware. SoapUI byl zpočátku propuštěn do~společnosti SourceForge v~září 2005. Je to~svobodný software, licencovaný na~základě podmínek veřejné licence Evropské unie. 
 
-Je postavena výhradně na~platformě Java a~používá rozhraní Swing pro~uživatelské rozhraní. To znamená, že~SoapUI je multiplatformní. Dnes SoapUI podporují všechny hlavní vývojová prostředí (Obr.~\ref{fig:soap-ui}) (IDE~\cite{ide}), jako je např. IDEA, Eclipse nebo NetBeans a~spousta dalších. SoapUI může testovat webové služby SOAP a REST, JMS~\cite{jms}, AMF~\cite{amf}, stejně jako volání HTTP(S) a~JDBC~\cite{jdbc}.
+Je postavena výhradně na~platformě Java a~používá rozhraní Swing pro~uživatelské rozhraní. To znamená, že~SoapUI je multiplatformní. Dnes SoapUI podporují všechny hlavní vývojová prostředí (Obr.~\ref{fig:soap-ui}) (IDE~\cite{ide}), jako je např. IDEA, Eclipse nebo NetBeans a~spousta dalších. SoapUI může testovat webové služby SOAP a~REST, JMS~\cite{jms}, AMF~\cite{amf}, stejně jako volání HTTP(S) a~JDBC~\cite{jdbc}.
 
 \obr{Podporované protokoly SOAP-UI~\cite{soap-ui}}{fig:soap-ui}{0.7}{graphics/soap-ui.png}
 
@@ -101,7 +101,7 @@ Je postavena výhradně na~platformě Java a~používá rozhraní Swing pro~uži
 		\setlength{\parskip}{0pt}
 		\setlength{\itemsep}{0pt}
 		\setstretch{1.05}
-		\item {je jednoduše čitelnější pro člověka.}
+		\item {je jednoduše čitelnější pro~člověka.}
 	\end{itemize}	
 	
 	\item {Nevýhody}
@@ -111,12 +111,12 @@ Je postavena výhradně na~platformě Java a~používá rozhraní Swing pro~uži
 		\setstretch{1.05}
 		\item {velký zápis komunikace,}
 		\item {složitost,}
-		\item {pomalé zpracování jednotlivými systémy (složité na parsovaní a validaci).}
+		\item {pomalé zpracování jednotlivými systémy (složité na~parsovaní a~validaci).}
 	\end{itemize}
 \end{itemize}
 
 \n{2}{REST}
-REST~\cite{rest} je architektura rozhraní, navržená pro~distribuovaná prostředí. REST navrhl a~popsal v~roce 2000 Roy Fielding (jeden ze spoluautorů protokolu HTTP~\cite{http}) v~rámci disertační práce Architectural Styles and the Design of Network-based Software Architectures~\cite{rest-publication}. Rozhraní REST je použitelné pro~jednotný a~snadný přístup ke~zdrojům (resources). Zdrojem mohou být data, stejně jako stavy aplikace (pokud je lze popsat konkrétními daty). REST je tedy na~rozdíl od~známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Všechny zdroje mají vlastní identifikátor URI a~REST definuje čtyři základní metody pro přístup k nim, které jsou známé pod označením CRUD:
+REST~\cite{rest} je architektura rozhraní, navržená pro~distribuovaná prostředí. REST navrhl a~popsal v~roce 2000 Roy Fielding (jeden ze spoluautorů protokolu HTTP~\cite{http}) v~rámci disertační práce Architectural Styles and the Design of Network-based Software Architectures~\cite{rest-publication}. Rozhraní REST je použitelné pro~jednotný a~snadný přístup ke~zdrojům (resources). Zdrojem mohou být data, stejně jako stavy aplikace (pokud je lze popsat konkrétními daty). REST je tedy na~rozdíl od~známějších XML-RPC či SOAP, orientován datově, nikoli procedurálně. Všechny zdroje mají vlastní identifikátor URI a~REST definuje čtyři základní metody pro přístup k~nim, které jsou známé pod označením CRUD:
 \begin{itemize}
 	\setlength{\parskip}{0pt}
 	\setlength{\itemsep}{0pt}
@@ -131,7 +131,7 @@ Tyto metody jsou implementovány pomocí odpovídajících metod HTTP protokolu.
 \n{3}{JSON}
 JSON~\cite{json} je způsob zápisu dat (datový formát) nezávislý na~počítačové platformě, určený pro~přenos dat, který může být organizován v~polích nebo agregován v~objektech. Vstupem je libovolná datová struktura (číslo, řetězec, boolean, objekt nebo z~nich složené pole), výstupem je vždy řetězec. Složitost hierarchie vstupní proměnné není teoreticky nijak omezena. 
 
-Kolekce párů \uv{název/hodnota} bývá v rozličných jazycích realizována jako objekt, záznam (record), struktura (struct), slovník (dictionary), hash tabulka, klíčový seznam (keyed list) nebo asociativní pole.
+Kolekce párů \uv{název/hodnota} bývá v~rozličných jazycích realizována jako objekt, záznam (record), struktura (struct), slovník (dictionary), hash tabulka, klíčový seznam (keyed list) nebo asociativní pole.
 
 Seřazený seznam hodnot je ve~většině jazyků realizován jako pole, vektor, seznam (list) nebo posloupnost (sequence).
 
@@ -146,16 +146,16 @@ Jedná se o~univerzální datové struktury a~v~podstatě všechny moderní prog
 \end{itemize}
 
 \n{3}{Postman}
-Postman~\cite{postman} (Obr.~\ref{fig:postman}) je open source aplikace pro~testování webových služeb pro~architektury orientované na REST.
+Postman~\cite{postman} (Obr.~\ref{fig:postman}) je open source aplikace pro~testování webových služeb pro~architektury orientované na~REST.
 
 \obr{Schéma užití Postman~\cite{postman}}{fig:postman}{1.0}{graphics/postman.png}
 
 \n{2}{JavaMail}
-Knihovna pro~příjímání a~odesíláni mailu. Javamail~\cite{javamail} je rozhraní jazyka Java, které pracuje na~základě protokolů SMTP, POP3 a IMAP. JavaMail je integrován do~platformy Java EE, ale nabízí i~volitelný balíček pro~použití v~Java SE.
+Knihovna pro~příjímání a~odesíláni mailu. Javamail~\cite{javamail} je rozhraní jazyka Java, které pracuje na~základě protokolů SMTP, POP3 a~IMAP. JavaMail je integrován do~platformy Java~EE, ale nabízí i~volitelný balíček pro~použití v~Java~SE.
 
 \n{2}{CSV}
 CSV~\cite{csv} je jednoduchy souborový formát pro~výměnu tabulkových dat.
-Soubor ve~formátu CSV sestává z řádků, ve~kterých jsou jednotlivé položky odděleny znakem čárka \uv{,}.Hodnoty položek mohou být uzavřeny do~uvozovek \uv{"}, což umožňuje, aby text položky obsahoval čárku. Pokud text položky obsahuje uvozovky, jsou pak zdvojeny.
+Soubor ve~formátu CSV sestává z~řádků, ve~kterých jsou jednotlivé položky odděleny znakem čárka \uv{,}.Hodnoty položek mohou být uzavřeny do~uvozovek \uv{"}, což umožňuje, aby~text položky obsahoval čárku. Pokud text položky obsahuje uvozovky, jsou pak zdvojeny.
 
 \n{2}{PostGIS}
 PostGIS~\cite{postgis} je open source software. Jedná se~o~nadstavbu pro~objektově-relační databázový systém PostgreSQL, která přidává podporu pro~geografické objekty~\cite{arcgis} (tzv. geoprvky). PostGIS~\cite{postgis2} implementuje specifikaci \uv{Simple Features for SQL} konsorcia Open Geospatial Consortium.
@@ -167,20 +167,20 @@ PostGIS~\cite{postgis} je open source software. Jedná se~o~nadstavbu pro~objekt
 \cast{Analytická část}
 
 \n{1}{Analýza obecně}
-Analýza je vědecká metoda založená na dekompozici celku na elementární části, je to metoda
-zkoumání složitějších skutečností rozkladem (dissolution) na jednodušší. Cílem analýzy je tedy identifikovat podstatné a nutné vlastnosti elementárních částí celku, poznat jejich podstatu a zákonitosti. Analýza je také způsob výkladu, jestliže oddělujeme jednotlivé jevy a zkoumáme je izolovaně. Opačný postup k analýze se nazývá syntéza. Cílem analýzy u informačních systémů není pouze zdokumentování stávajícího stavu, ale zejména pochopení logiky fungování systému a tím pádem získání výchozích předpokladů pro možnou optimalizaci.
+Analýza je vědecká metoda založená na~dekompozici celku na~elementární části, je to metoda
+zkoumání složitějších skutečností rozkladem (dissolution) na~jednodušší. Cílem analýzy je tedy identifikovat podstatné a~nutné vlastnosti elementárních částí celku, poznat jejich podstatu a~zákonitosti. Analýza je také způsob výkladu, odděluje jednotlivé jevy a~zkoumá je izolovaně. Opačný postup k~analýze se nazývá syntéza. Cílem analýzy~u informačních systémů není pouze zdokumentování stávajícího stavu, ale zejména pochopení logiky fungování systému a~tím~pádem získání výchozích předpokladů pro~možnou optimalizaci.
 Cílem analýzy tedy je:
 \begin{itemize}
 	\setlength{\parskip}{0pt}
 	\setlength{\itemsep}{0pt}
 	\setstretch{1.05}
-	\item Získat znalosti o systému
-	\item Zjistit nedostatky a slabá místa
+	\item Získat znalosti o~systému
+	\item Zjistit nedostatky a~slabá místa
 	\item Uvědomit si potřebné změny
 \end{itemize}
-Analýza by měla postupovat od globálního pohledu k potřebným detailům.
+Analýza by měla postupovat od~globálního pohledu k~potřebným detailům.
 
-\obr{Pohled L1 na současnou HW architekturu}{fig:HWpohled}{1.0}{graphics/HWpohled.png}
+\obr{Pohled L1 na~současnou HW architekturu}{fig:HWpohled}{1.0}{graphics/HWpohled.png}
 
 \n{1}{Diferenční analýza}
 
@@ -188,14 +188,14 @@ Analýza by měla postupovat od globálního pohledu k potřebným detailům.
 Stavajici system je založený na komunikaci pomocí zasílání SMS mezi obsluhou vozu (řidič nebo steward) a dispečerem (systém). SMS mají pevnou základní strukturu a do systému jsou napojeny pomocí SMS brány (Gateway). Dále je možné spoždění přímo zadat do systému (Obr.~\ref{fig:addDelay}).
 \obr{Vlkádání zpoždění v administratorském systému}{fig:addDelay}{0.7}{graphics/addDelay.png}
 
-Všechny tyto možnosti ukládání dat o spoždění jsou auditovány a je možnost zobrazovat jejich historii (Obr.~\ref{fig:auditDelay}).
+Všechny tyto možnosti ukládání dat o~spoždění jsou auditovány a~je možnost zobrazovat jejich historii (Obr.~\ref{fig:auditDelay}).
 
 \obr{Audit zpoždění}{fig:auditDelay}{0.45}{graphics/auditDelay.png}
 
 \n{2}{Popis plánovaného stavu}
-Autobusy a vlaky (vagony) budou vybaveny zařízením na monitoring polohy (GPS).
-Souradnice budou odeslány a zpracovány na sběrném serveru. Tyto pak budou vystaveny třetím stranám.
-Napojení nového zdroje informací o zpoždění (SŽDC). Napojení nového zdroje informací o zastávkách a stanicích (SŽDC). Vytvořit webové rozhraní pro distribuci infomací o zpoždění.
+Autobusy a~vlaky (vagony) budou vybaveny zařízením na~monitoring polohy (GPS).
+Souřadnice budou odeslány a~zpracovány na~sběrném serveru. Tyto pak~budou vystaveny třetím stranám.
+Napojení nového zdroje informací o~zpoždění (SŽDC). Napojení nového zdroje informací o~zastávkách a~stanicích (SŽDC). Vytvořit webové rozhraní pro~distribuci informací o~zpoždění.
 
 \obr{Funkční požadavky}{fig:funkcniPozadavky}{1.0}{graphics/funkcniPozadavky.png}
 \obr{Nefunkční požadavky}{fig:nefunkcniPozadavky}{0.7}{graphics/nefunkcniPozadavky.png}
@@ -213,9 +213,9 @@ text
 text
 
 \n{2}{Popis stavu po změnach}
-I nadále je využíván původní system založený na odesílání SMS s zadaným textem a hodnotou spoždění. Nově jsou pak přidány zdroje dat o poloze a spoždění spojů.
+I~nadále je využíván původní systém založený~na odesílání SMS s~zadaným textem a~hodnotou zpoždění. Nově jsou pak přidány zdroje dat o~poloze a~zpoždění spojů.
 
-\n{1}{Navrhněte technické řešení pro výpočet zpoždění}
+\n{1}{Navrhněte technické řešení pro~výpočet zpoždění}
 \begin{itemize}
 	\item Vytvorime si zakladni trasu spoje pomoci GPS souradnic
 	\item Tuto trasu rozdelime na trasy mezi zastavkami (aby nebyl prilis velky pocet souradnic)
@@ -225,9 +225,6 @@ I nadále je využíván původní system založený na odesílání SMS s zadan
 	\item Vyuzijem PostGIS k vraceni nejblizsi souradnice, u teto souradnice zname i cas prujezdu
 	\item Zpozdeni ulozime do databaze
 \end{itemize}
-
-\n{2}{Podnadpis}
-text
 
 % ============================================================================ %
 \cast{Projektová část}
