@@ -185,10 +185,10 @@ Analýza by měla postupovat od~globálního pohledu k~potřebným detailům.
 \n{1}{Diferenční analýza}
 
 \n{2}{Popis stávajícího stavu}
-Stavajici system je založený na komunikaci pomocí zasílání SMS mezi obsluhou vozu (řidič nebo steward) a dispečerem (systém). SMS mají pevnou základní strukturu a do systému jsou napojeny pomocí SMS brány (Gateway). Dále je možné spoždění přímo zadat do systému (Obr.~\ref{fig:addDelay}).
-\obr{Vlkádání zpoždění v administratorském systému}{fig:addDelay}{0.7}{graphics/addDelay.png}
+Stávající systém je založený na~komunikaci pomocí zasílání SMS mezi obsluhou vozu (řidič nebo steward) a~dispečerem (systém). SMS mají pevnou základní strukturu a~do systému jsou napojeny pomocí SMS brány (Gateway). Dále je možné zpoždění přímo zadat do~systému (Obr.~\ref{fig:addDelay}).
+\obr{Vkládání zpoždění v~administrátorském systému}{fig:addDelay}{0.7}{graphics/addDelay.png}
 
-Všechny tyto možnosti ukládání dat o~spoždění jsou auditovány a~je možnost zobrazovat jejich historii (Obr.~\ref{fig:auditDelay}).
+Všechny tyto možnosti ukládání dat o~zpoždění jsou auditovány a~je možné zobrazovat jejich historii (Obr.~\ref{fig:auditDelay}).
 
 \obr{Audit zpoždění}{fig:auditDelay}{0.45}{graphics/auditDelay.png}
 
@@ -212,18 +212,18 @@ text
 \n{2}{V případě potřeby se celý postup opakuje, dokud není dosaženo cílového stavu}
 text
 
-\n{2}{Popis stavu po změnach}
+\n{2}{Popis stavu po~změnách}
 I~nadále je využíván původní systém založený~na odesílání SMS s~zadaným textem a~hodnotou zpoždění. Nově jsou pak přidány zdroje dat o~poloze a~zpoždění spojů.
 
 \n{1}{Navrhněte technické řešení pro~výpočet zpoždění}
 \begin{itemize}
-	\item Vytvorime si zakladni trasu spoje pomoci GPS souradnic
-	\item Tuto trasu rozdelime na trasy mezi zastavkami (aby nebyl prilis velky pocet souradnic)
-	\item Pomoci Trasovani spoje (napojeni na polohavozu.cz) ziskame souradnice GPS a cas kdy byli tyto data porizeny
-	\item Vytvorime modelovou trasu spoje s casem
-	\item Porovanáním modelove trasy spoje a aktualni pozice vozu, muzem vypocist zpozdeni
-	\item Vyuzijem PostGIS k vraceni nejblizsi souradnice, u teto souradnice zname i cas prujezdu
-	\item Zpozdeni ulozime do databaze
+	\item Definovat (základní) trasu spoje pomocí GPS souřadnic.
+	\item Tuto trasu rozdělit na~trasy mezi zastávkami (aby nebyl příliš velký počet souřadnic).
+	\item Pomocí trasování spoje (napojení na~polohavozu.cz) získat souřadnice GPS a~čas kdy byli tyto data pořízeny.
+	\item Vytvořit modelovou trasu spoje s~časem.
+	\item Porovnat modelové trasy spoje a~aktuální pozice vozu. Na~základě porovnání stanovit zpoždění.
+	\item Využít PostGIS k~vracení nejbližší souřadnice, u~této souřadnice vyhodnotit známý čas průjezdu.
+	\item Zpoždění uložit do~databáze.
 \end{itemize}
 
 % ============================================================================ %
@@ -233,55 +233,55 @@ I~nadále je využíván původní systém založený~na odesílání SMS s~zada
 Pro zlepšení přesnosti stávající situace informací o~zpoždění bylo rozhodnuto o~napojení se na~nové zdroje informací, které nám pomohou zpřesnit a~hlavně automatizovat načítání, zpracovaní a~zobrazení informací o~zpoždění spojů.
 
 \n{2}{Připojení SŽDC API}
-Prvním z~nich je datové rozhraní GRAPP~(Obr.~\ref{fig:grapp}), ze které se~bude načítat zpoždění a~poslední potvrzené průjezdové místo vozu kontrolním bodem. Druhým je pak datové rozhraní Informační tabule, zde se budou načítat aktuální názvy nástupišť v~dané zastávce pro~daný spoj. Tato datová rozhraní spravuje společnost OLTIS group a.s., která jej provozuje pro~společnost SŽDC.
+Prvním z~nich je datové rozhraní GRAPP~(Obr.~\ref{fig:grapp}), ze~kterého se~bude načítat zpoždění a~poslední potvrzené průjezdové místo vozu pomocí kontrolního bodu. Druhým je datové rozhraní Informační tabule. Zde se budou načítat aktuální názvy nástupišť v~dané zastávce pro~daný spoj. Tato datová rozhraní spravuje společnost OLTIS group a.s., která jej provozuje pro~společnost SŽDC.
 
 \obr{GRAPP~\cite{grapp}}{fig:grapp}{1.0}{graphics/grapp.png}
 
 \n{3}{Datové rozhraní GRAPP}
 
 \n{4}{Informační systém GRAPP}
-, který vlastní společnost SŽDC, státní organizace (dále jen SŽDC), poskytuje datové rozhraní formou webové služby pro další systémy (poskytování dat z informačního systému GRAPP třetím stranám). Aplikace třetích stran se mohou dotazovat do informačního systému GRAPP na~aktuální data týkající se polohy vlaků veřejné osobní dopravy, respektive jejich poslední potvrzené polohy, na dopravní síti SŽDC včetně doplňujících údajů.
+, který vlastní společnost SŽDC, státní organizace (dále jen SŽDC), poskytuje datové rozhraní formou webové služby pro další systémy (poskytování dat z~informačního systému GRAPP třetím stranám). Aplikace třetích stran se mohou dotazovat do~informačního systému GRAPP na~aktuální data týkající se polohy vlaků veřejné osobní dopravy, respektive jejich poslední potvrzené polohy, na~dopravní síti SŽDC včetně doplňujících údajů.
 
 \n{4}{Úprava pom.xml}
-je první v~pořadí (Kod.~\ref{uprava-pom-szdc-position.xml}). Pom.xml je soubor, do~kterého doplníme novou část kódu v~sekci <plugin>. Pomocí tohoto přidaného kódu pak~při~opětovném sestavení projektu (s~použitím Mavenu) dojde k~autogenerování tříd datového rozhraní GRAPP, které pak~využijeme pro~načítání dat.
+je první v~pořadí (Kod.~\ref{uprava-pom-szdc-position.xml}). Pom.xml je soubor, do~kterého je třeba doplnit novou část kódu v~sekci \textit{plugin}. Pomocí tohoto přidaného kódu pak~při~opětovném sestavení projektu (s~použitím Mavenu) dojde k~autogenerování tříd datového rozhraní GRAPP, které pak~využijeme pro~načítání dat.
 
 \script{uprava-pom-szdc-position.xml}{xml}
-Následuje tvorba interface provideru (Kod.~\ref{SzdcProvider.java}) a komunikačních přepravek (Obr.~\ref{fig:szdc-position-models}).
+Následuje tvorba interface providera (Kod.~\ref{SzdcProvider.java}) a~komunikačních přepravek. (Obr.~\ref{fig:szdc-position-models}).
 
 \n{4}{Interface providera} se tvoří jako další krok (Kod.~\ref{SzdcProvider.java}) a~dále komunikační přepravky (Obr.~\ref{fig:szdc-position-models}).
  	
 \obr{Vizualizace WSDL pro SŽDC (getTrain position)}{fig:szdc-position-models}{0.9}{graphics/szdc-position-models.jpg}
 \script{SzdcProvider.java}{Java}
 
-\n{4}{Tvorba service} je dalším krokem (Kod.~\ref{SzdcPositionWSApiService.java}), přes~které se~budeme dotazovat na~datové rozhraní GRAPP.
+\n{4}{Tvorba service} je dalším krokem (Kod.~\ref{SzdcPositionWSApiService.java}), přes~které bude dotazováno na~datové rozhraní GRAPP.
 
 \script{SzdcPositionWSApiService.java}{Java}
 
-\n{4}{Implemntace provideru} a~jeho metod (Kod.~\ref{SzdcProviderImpl.java}), které budeme využívat.
+\n{4}{Implementace providera} a~jeho metod (Kod.~\ref{SzdcProviderImpl.java}), které budou využity.
 
 \script{SzdcProviderImpl.java}{Java}
 
-\n{4}{Vytvoření rozhraní a implementace service} lze nyní provést (Kod.~\ref{SzdcService.java}) (Kod.~\ref{SzdcServiceImpl.java}) pro~načítání a~aktualizaci nového zdroje dat zpoždění. Pro~identifikaci spojení, na~které je nutné se dotázat datového rozhraní a~doplnit do requestu, je nutné vytvořit databázový dotaz. Ten vytvoříme pomocí Hibernate (Kod.~\ref{SzdcDao.java}).
+\n{4}{Vytvoření rozhraní a~implementace service} lze nyní provést (Kod.~\ref{SzdcService.java}) (Kod.~\ref{SzdcServiceImpl.java}) pro~načítání a~aktualizaci nového zdroje dat zpoždění. Pro~identifikaci spojení, na~které je nutné se dotázat datového rozhraní a~doplnit do requestu, je nutné vytvořit databázový dotaz. Ten bude realizován pomocí Hibernate (Kod.~\ref{SzdcDao.java}).
 
 \script{SzdcDao.java}{Java}
 \script{SzdcService.java}{Java}
 \script{SzdcServiceImpl.java}{Java}
 
-\n {4}{Automatické spouštění} je posledním krokem k~dokončení operace. Pomocí CRONu vytvoříme periodické spuštění dotazu na~datové rozhraní a následné uložení do~databáze.
+\n {4}{Automatické spouštění} je posledním krokem k~dokončení operace. Pomocí CRONu vytvoříme periodické spuštění dotazu na~datové rozhraní a~následné uložení do~databáze.
 
 \script{applicationContex-cron-position.xml}{xml}
 
 
 \n{3}{Datové rozhraní Informační tabule}
-Další možností načítaní zdroje dat zpoždění je datové rozhraní informační tabule. Při~implementaci jsem nakonec toto datové rozhraní pro~načítaní zpoždění nepoužily. Toto rozhraní je primárně  využito k~načítaní informaci o~zastávkách a~nástupištích kudy spoj projíždí.
+Další možností načítaní zdroje dat zpoždění je datové rozhraní informační tabule. Tato část implementace nakonec nebyla realizována. Její přínos pro nový dispečerský systém byl nulový. Toto rozhraní je primárně  využito k~načítaní informaci o~zastávkách a~nástupištích kudy spoj projíždí.
 
 \n{4}{Informační systém TABULE}
-, který vlastní společnost SŽDC, poskytuje datové rozhraní formou webové služby pro další systémy. Cílem je poskytování dat z informačního systému TABULE pro třetí strany. Aplikace třetích stran se mohou dotazovat do informačního systému TABULE na aktuální data týkající se odjezdových a příjezdových tabulí dopravních bodů na dopravní síti SŽDC, které mohou tato data poskytovat.
+, který vlastní společnost SŽDC, poskytuje datové rozhraní formou webové služby pro další systémy. Cílem je poskytování dat~z informačního systému TABULE pro~třetí strany. Aplikace třetích stran se mohou dotazovat do~informačního systému TABULE na~aktuální data týkající se odjezdových a~příjezdových tabulí dopravních bodů na~dopravní síti SŽDC, které mohou tato data poskytovat.
 
 \n{2}{Připojení Polohavozu.cz}
-V~první fázi byla napojena datová rozhraní od SŽDC, bohužel neobsahovala všechna potřebná data. Chybějícím prvkem byla poloha, souřadnice GPS potřebná k~určení kde se vůz nachází a~pomoci ni vypočíst zpoždění.
+V~první fázi byla napojena datová rozhraní od~SŽDC, bohužel neobsahovala všechna potřebná data. Chybějícím prvkem byla poloha, souřadnice GPS, potřebná k~určení, kde se vůz nachází a~pomoci ní vypočítat zpoždění.
 
-\n{4}{Tvorba Provideru} (inteface, implementace)
+\n{4}{Tvorba providera} (inteface, implementace)
 	
 \script{VehiclePositionProvider.java}{Java}
 \script{VehiclePositionProviderImpl.java}{Java}
@@ -293,14 +293,14 @@ V~první fázi byla napojena datová rozhraní od SŽDC, bohužel neobsahovala v
 \n{4}{Nedokonceno}
 
 
-\n{2}{Načítaní struktury vlaku do~dispečinkového systému}
-Abychom byli schopni správně se dotazovat na~polohu vozů, je třeba nejprve získat strukturu složení vlaku. Jedna se aktuální zapojení vagonů. Načítat budeme identifikátor vagonu (jedinečná stringová hodnota). Takto identifikované vozy pak~přiřadíme jednotlivým spojům a~uložíme do~databáze. Podle nich potom můžeme přesně získávat data o~poloze.
+\n{2}{Načítaní struktury vlaku do~dispečerského systému}
+Pro správné dotazování se na~polohu vozů, je třeba nejprve získat strukturu složení vlaku. Jedna se o~aktuální zapojení vagonů. Načítá se bude identifikátor vagonu (jedinečná stringová hodnota). Takto identifikované vozy pak~jsou přiřazeny jednotlivým spojům a~uloženy do~databáze. Podle nich lze přesně získat data o~poloze.
 
 \n{4}{Tvorba Provideru (inteface, implementace)}
 	
 \script{TrafficControlProvider.java}{Java}
 	
-\n{4}{Parsovaní CSV souboru a~ulozeni dat (konverze dat) do datových prepravek}
+\n{4}{Parsování CSV souboru a~uložení dat (konverze dat) do datových přepravek}
 	
 \script{TrafficControlProviderImpl.java}{Java}
 	
@@ -310,25 +310,25 @@ Abychom byli schopni správně se dotazovat na~polohu vozů, je třeba nejprve z
 \script{WagonDO.java}{Java}
 	
 \n{4}{Vytvoření mailu}~pro odebírání Excel souboru se strukturou vlaku rozepsanou na den
-\n{4}{Připojení se na tuto mailovou adresu} pomocí javamail knihovny
+\n{4}{Připojení se na tuto mailovou adresu} pomocí JavaMail knihovny
 	
 \script{TrafficControlMailDownloader.java}{Java}
 	
-\n{4}{Načtení přijatých a odfiltrování přebytečných mailů}, které jsou buď staré nebo neobsahuji přílohu
-\n{4}{Otevření přílohy a načtení excelového souboru}
-\n{4}{Otevřeni pracovního sešitu a načteni dat z excelových buňek do CSV souboru}
+\n{4}{Načtení přijatých a~odfiltrování přebytečných mailů}, které jsou buď staré nebo neobsahuji přílohu
+\n{4}{Otevření přílohy a~načtení excelového souboru}
+\n{4}{Otevřeni pracovního sešitu a~načtení dat z~excelových buněk do CSV souboru}
 	
 \script{ExcelToCsvConverter.java}{Java}
 	
 	
 \n{4}{Dao funkce} (Hibenate dotaz do DB), využiti stávajících funkcí
-\n{4}{Tvorba service} (inteface, implementace) -> Tady je největší zajímavost a to využiti funkcionálního inteface z Java8~\cite{java8}
+\n{4}{Tvorba service} (inteface, implementace) -> Tady je největší zajímavost a to využití funkcionálního inteface z Java8~\cite{java8}
 	
 \script{TrafficControlService.java}{Java}
 \script{TrafficControlServiceImpl.java}{Java}
 	
-\n{4}{Pomocí stavajicích funkci ulozíme data do DB}
-\n{4}{Tvorba cron jobu} pro pravidelý update
+\n{4}{Pomocí stávajících funkcí uložíme data do DB}
+\n{4}{Tvorba CRON jobu} pro pravidelnou aktualizaci
 	
 \script{applicationContext-cron-Struktura.xml}{xml}
 	
@@ -336,25 +336,20 @@ Abychom byli schopni správně se dotazovat na~polohu vozů, je třeba nejprve z
 \n{1}{Distribuce zpoždění}
 Plazmy, GTFS-real time, SMS, mail
 
-\n{2}{Zobrazení na zpozdeni spoje}
+\n{2}{Zobrazení na zpoždění spoje}
 \begin{itemize}
-	\item Vyuzit stavajici funkci pro zobrazovani na Plazmach
-	\item Zasilani SMS a mailu o zpozdeni pro jednotlive prodejce a dispecery podle skupin
+	\item Využít stávající funkci pro~zobrazování na~Plazmy
+	\item Zasílaní SMS a~mailu o~zpoždění pro~jednotlivé prodejce a~dispečery podle skupin
 \end{itemize}
-
-\n{3}{Podnandpis}
-text
 
 \n{2}{Zobrazení údajů o zpoždění}
 \begin{itemize}
-	\item Tvorba noveho endpontu pro real-time GTFS
-	\item GTFS-RT musi obsahovat stejne identifikatory jako staticke GTFS
+	\item Tvorba nového endpontu pro real-time GTFS
+	\item GTFS-RT musí obsahovat stejné identifikátory jako statické GTFS
 	\item Google Protokolbuffer
-	\item Pripojeni nacitani zpozdeni a poloha GPS
+	\item Připojení načítání zpoždění a poloha GPS
 \end{itemize}
 
-\n{3}{Podnandpis}
-text
 % ============================================================================ %
 \nn{Závěr}
 Text závěru
