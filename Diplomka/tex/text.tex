@@ -192,112 +192,97 @@ text
 Pro zlepšení přesnosti stávající situace informací o~zpoždění bylo rozhodnuto o~napojení se na~nové zdroje informací, které nám pomohou zpřesnit a~hlavně automatizovat načítání, zpracovaní a~zobrazení informací o~zpoždění spojů.
 
 \n{2}{Připojení SŽDC API}
-Prvním z nich je datové rozhraní GRAPP~(Obr.~\ref{fig:grapp}), ze které se bude načítat zpoždění a poslední potvrzené průjezdové místo vozu kontrolním bodem. Druhým je pak datové rozhraní Informační tabule, zde se budou načítat aktuální názvy nástupišť v dané zastávce pro daný spoj. Tato datová rozhraní spravuje společnost OLTIS group a.s., která jej provozuje pro společnost SŽDC.
+Prvním z~nich je datové rozhraní GRAPP~(Obr.~\ref{fig:grapp}), ze které se~bude načítat zpoždění a~poslední potvrzené průjezdové místo vozu kontrolním bodem. Druhým je pak datové rozhraní Informační tabule, zde se budou načítat aktuální názvy nástupišť v~dané zastávce pro~daný spoj. Tato datová rozhraní spravuje společnost OLTIS group a.s., která jej provozuje pro~společnost SŽDC.
 
 \obr{GRAPP~\cite{grapp}}{fig:grapp}{1.0}{graphics/grapp.png}
 
 \n{3}{Datové rozhraní GRAPP}
 \n{4}{Úprava pom.xml}
-je první v pořadí (Kod.~\ref{uprava-pom-szdc-position.xml}). Pom.xml je soubor do kterého doplníme novou část kodu v sekci <plugin>. Pomocí tohoto přidaného kódu pak při opětovném sestavení projektu pomocí mavenu dojde k autogenerování tříd datového rozhraní GRAPP, které pak využijem pro načítání dat.
+je první v~pořadí (Kod.~\ref{uprava-pom-szdc-position.xml}). Pom.xml je soubor, do~kterého doplníme novou část kódu v~sekci <plugin>. Pomocí tohoto přidaného kódu pak~při~opětovném sestavení projektu (s~použitím Mavenu) dojde k~autogenerování tříd datového rozhraní GRAPP, které pak~využijeme pro~načítání dat.
 
 \script{uprava-pom-szdc-position.xml}{xml}
 
-Následuje tvorba interface provideru (Kod.~\ref{SzdcProvider.java}) a komunikačních přepravek (Obr.~\ref{fig:szdc-position-models}).
+\n{4}{Interface providera} se tvoří jako další krok (Kod.~\ref{SzdcProvider.java}) a~dále komunikační přepravky (Obr.~\ref{fig:szdc-position-models}).
  	
 \obr{szdc-position-models}{fig:szdc-position-models}{0.9}{graphics/szdc-position-models.jpg}
 \script{SzdcProvider.java}{Java}
-\begin{itemize}
- 	\setlength{\parskip}{0pt}
- 	\setlength{\itemsep}{0pt}
- 	\setstretch{1.05}
 
+\n{4}{Tvorba service} je dalším krokem (Kod.~\ref{SzdcPositionWSApiService.java}), přes~které se~budeme dotazovat na~datové rozhraní GRAPP.
 
- 
-	\item Dalším krokem je tvorba service (Kod.~\ref{SzdcPositionWSApiService.java}), přes které se budem dotazovat na datové rozhraní GRAPP.
- 
-	\script{SzdcPositionWSApiService.java}{Java}
- 
-	\item 
- 
-	\item Implemntace provideru a jeho metod (Kod.~\ref{SzdcProviderImpl.java}), které budem využívat.
- 
-	\script{SzdcProviderImpl.java}{Java}
- 
-	\item Nyní máme vše potřebné k vytvoření rozhraní (Kod.~\ref{SzdcService.java}) a implementaci service (Kod.~\ref{SzdcServiceImpl.java}) pro načítání a aktualizaci nového zdroje dat spoždění. Pro identifikaci spojení, na které je nutné se dotázat datového rozhraní a doplnit do requestu, je nutné vytvořit databázový dotaz. Ten vytoříme pomocí hibernate (Kod.~\ref{SzdcDao.java}).
-	
-	\script{SzdcDao.java}{Java}
-	\script{SzdcService.java}{Java}
-	\script{SzdcServiceImpl.java}{Java}
-	
-	\item Posledním krokem k dokončení je automatické spouštění. Pomocí CRONu vytvoříme periodické spuštění dotazu na datové rozhraní a následné uložení do databáze.
-	
-	\script{applicationContex-cron-position.xml}{xml}
-\end{itemize} 
+\script{SzdcPositionWSApiService.java}{Java}
+
+\n{4}{Implemntace provideru} a~jeho metod (Kod.~\ref{SzdcProviderImpl.java}), které budeme využívat.
+
+\script{SzdcProviderImpl.java}{Java}
+
+\n{4}{Vytvoření rozhraní a implementace service} lze nyní provést (Kod.~\ref{SzdcService.java}) (Kod.~\ref{SzdcServiceImpl.java}) pro~načítání a~aktualizaci nového zdroje dat zpoždění. Pro~identifikaci spojení, na~které je nutné se dotázat datového rozhraní a~doplnit do requestu, je nutné vytvořit databázový dotaz. Ten vytvoříme pomocí Hibernate (Kod.~\ref{SzdcDao.java}).
+
+\script{SzdcDao.java}{Java}
+\script{SzdcService.java}{Java}
+\script{SzdcServiceImpl.java}{Java}
+
+\n {4}{Automatické spouštění} je posledním krokem k~dokončení operace. Pomocí CRONu vytvoříme periodické spuštění dotazu na~datové rozhraní a následné uložení do~databáze.
+
+\script{applicationContex-cron-position.xml}{xml}
+
 
 \n{3}{Datové rozhraní Informační tabule}
-Další možností načítaní zdroje dat spoždění je datové rozhraní informační tabule. Při implementaci jsem nakonec toto datové rozhraní pro načítaní spoždění nepoužily. Toto rozhraní je primárně  využito k načítaní informaci o zastávkách a nástupištích kudy spoj projíždí.
+Další možností načítaní zdroje dat zpoždění je datové rozhraní informační tabule. Při~implementaci jsem nakonec toto datové rozhraní pro~načítaní zpoždění nepoužily. Toto rozhraní je primárně  využito k~načítaní informaci o~zastávkách a~nástupištích kudy spoj projíždí.
 
 \n{2}{Připojení Polohavozu.cz}
-V první fázi byla napojena datova rozhraní od SŽDC, bohužel neobsahovala všechna potřebná data. Chybjejícím prvkem byla poloha, souřadnice GPS potřebná k určení kde se vůz nachází a pomoci ni vypočíst spoždění.
-\begin{itemize}
-	\setlength{\parskip}{0pt}
-	\setlength{\itemsep}{0pt}
-	\setstretch{1.05}
-	\item Tvorba Provideru (inteface, implementace)
-	
-	\script{VehiclePositionProvider.java}{Java}
-	\script{VehiclePositionProviderImpl.java}{Java}
-	\script{PositionDO.java}{Java}
-	\script{TrackedVehiclePathDO.java}{Java}
-	\script{VehicleInfoDO.java}{Java}
-	
-	\item tvorba cron jobu pro pravidelý update
-	Nedokonceno
-\end{itemize}
+V~první fázi byla napojena datová rozhraní od SŽDC, bohužel neobsahovala všechna potřebná data. Chybějícím prvkem byla poloha, souřadnice GPS potřebná k~určení kde se vůz nachází a~pomoci ni vypočíst zpoždění.
 
-\n{2}{Načítaní struktury vlaku do dispečinkového systému}
-Abychom byli schopni správně se dotazovat na polohu vozů, je třeba nejprve získat strukturu složení vlaku. Jedna se aktulální zapojení vagonů. Načítat budem identifikator vagonu (jedinečná stringova hodnota). Takto identifikovane vozy pak přiřadíme jednotlivým spojům a uložíme do datbaze. Podle nich potom můžem přesně získavat data o poloze.
-\begin{itemize}
-	\setlength{\parskip}{0pt}
-	\setlength{\itemsep}{0pt}
-	\setstretch{1.05}
-	\item Tvorba Provideru (inteface, implementace)
+\n{4}{Tvorba Provideru} (inteface, implementace)
 	
-	\script{TrafficControlProvider.java}{Java}
+\script{VehiclePositionProvider.java}{Java}
+\script{VehiclePositionProviderImpl.java}{Java}
+\script{PositionDO.java}{Java}
+\script{TrackedVehiclePathDO.java}{Java}
+\script{VehicleInfoDO.java}{Java}
 	
-	\item Parsovani CSV souboru a ulozeni dat (konverze dat) do datových prepravek
+\n{4}{tvorba CRON JOBu} pro pravidelný update
+\n{4}{Nedokonceno}
+
+
+\n{2}{Načítaní struktury vlaku do~dispečinkového systému}
+Abychom byli schopni správně se dotazovat na~polohu vozů, je třeba nejprve získat strukturu složení vlaku. Jedna se aktuální zapojení vagonů. Načítat budeme identifikátor vagonu (jedinečná stringová hodnota). Takto identifikované vozy pak~přiřadíme jednotlivým spojům a~uložíme do~databáze. Podle nich potom můžeme přesně získávat data o~poloze.
+
+\n{4}{Tvorba Provideru (inteface, implementace)}
 	
-	\script{TrafficControlProviderImpl.java}{Java}
+\script{TrafficControlProvider.java}{Java}
 	
-	\item Vytvoreni datových přepravek
+\n{4}{Parsovaní CSV souboru a~ulozeni dat (konverze dat) do datových prepravek}
 	
-	\script{TrainCompositionDO.java}{Java}
-	\script{WagonDO.java}{Java}
+\script{TrafficControlProviderImpl.java}{Java}
 	
-	\item Vytvoreni mailu pro odebírání excel souboru se strukturou vlaku rozepsanou na den
-	\item Pripojeni se na tuto mailovou adresu pomocí javamail knihovny
+\n{4}{Vytvoření datových přepravek}
 	
-	\script{TrafficControlMailDownloader.java}{Java}
+\script{TrainCompositionDO.java}{Java}
+\script{WagonDO.java}{Java}
 	
-	\item Nacteni prijatých mailu a odfiltrovani prebytecnych mailu, ktere jsou bud stare nebo neobsahuji prilohu
-	\item Otevreni prilohy a nacteni exceloveho souboru
-	\item Otevreni pracovniho sesitu a nacteni dat z exceloých bunek do CSV souboru
+\n{4}{Vytvoření mailu}~pro odebírání Excel souboru se strukturou vlaku rozepsanou na den
+\n{4}{Připojení se na tuto mailovou adresu} pomocí javamail knihovny
 	
-	\script{ExcelToCsvConverter.java}{Java}
+\script{TrafficControlMailDownloader.java}{Java}
+	
+\n{4}{Načtení přijatých a odfiltrování přebytečných mailů}, které jsou buď staré nebo neobsahuji přílohu
+\n{4}{Otevření přílohy a načtení excelového souboru}
+\n{4}{Otevřeni pracovního sešitu a načteni dat z excelových buňek do CSV souboru}
+	
+\script{ExcelToCsvConverter.java}{Java}
 	
 	
-	\item Dao funkce (hibenate dotaz do DB), vyuziti stavajici funkci
-	\item Tvorba service (inteface, implementace) -> Tady je nejvetsi zajimavost a to vyuziti funkcionalního inteface z Java8
+\n{4}{Dao funkce} (Hibenate dotaz do DB), využiti stávajících funkcí
+\n{4}{Tvorba service} (inteface, implementace) -> Tady je největší zajímavost a to využiti funkcionálního inteface z Java8
 	
-	\script{TrafficControlService.java}{Java}
-	\script{TrafficControlServiceImpl.java}{Java}
+\script{TrafficControlService.java}{Java}
+\script{TrafficControlServiceImpl.java}{Java}
 	
-	\item Pomocí stavajicích funkci ulozíme data do DB
-	\item tvorba cron jobu pro pravidelý update
+\n{4}{Pomocí stavajicích funkci ulozíme data do DB}
+\n{4}{Tvorba cron jobu} pro pravidelý update
 	
-	\script{applicationContext-cron-Struktura.xml}{xml}
+\script{applicationContext-cron-Struktura.xml}{xml}
 	
-\end{itemize}
 
 \n{1}{Distribuce zpoždění}
 Plazmy, GTFS-real time, SMS, mail
