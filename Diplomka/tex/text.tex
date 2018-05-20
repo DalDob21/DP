@@ -197,10 +197,15 @@ Prvním z~nich je datové rozhraní GRAPP~(Obr.~\ref{fig:grapp}), ze které se~b
 \obr{GRAPP~\cite{grapp}}{fig:grapp}{1.0}{graphics/grapp.png}
 
 \n{3}{Datové rozhraní GRAPP}
+
+\n{4}{Informační systém GRAPP}
+, který vlastní společnost SŽDC, státní organizace (dále jen SŽDC), poskytuje datové rozhraní formou webové služby pro další systémy (poskytování dat z informačního systému GRAPP třetím stranám). Aplikace třetích stran se mohou dotazovat do informačního systému GRAPP na aktuální data týkající se polohy vlaků veřejné osobní dopravy, respektive jejich poslední potvrzené polohy, na dopravní síti SŽDC včetně doplňujících údajů.
+
 \n{4}{Úprava pom.xml}
 je první v~pořadí (Kod.~\ref{uprava-pom-szdc-position.xml}). Pom.xml je soubor, do~kterého doplníme novou část kódu v~sekci <plugin>. Pomocí tohoto přidaného kódu pak~při~opětovném sestavení projektu (s~použitím Mavenu) dojde k~autogenerování tříd datového rozhraní GRAPP, které pak~využijeme pro~načítání dat.
 
 \script{uprava-pom-szdc-position.xml}{xml}
+Následuje tvorba interface provideru (Kod.~\ref{SzdcProvider.java}) a komunikačních přepravek (Obr.~\ref{fig:szdc-position-models}).
 
 \n{4}{Interface providera} se tvoří jako další krok (Kod.~\ref{SzdcProvider.java}) a~dále komunikační přepravky (Obr.~\ref{fig:szdc-position-models}).
  	
@@ -228,6 +233,9 @@ je první v~pořadí (Kod.~\ref{uprava-pom-szdc-position.xml}). Pom.xml je soubo
 
 \n{3}{Datové rozhraní Informační tabule}
 Další možností načítaní zdroje dat zpoždění je datové rozhraní informační tabule. Při~implementaci jsem nakonec toto datové rozhraní pro~načítaní zpoždění nepoužily. Toto rozhraní je primárně  využito k~načítaní informaci o~zastávkách a~nástupištích kudy spoj projíždí.
+
+\n{4}{Informační systém TABULE}
+, který vlastní společnost SŽDC, poskytuje datové rozhraní formou webové služby pro další systémy. Cílem je poskytování dat z informačního systému TABULE pro třetí strany. Aplikace třetích stran se mohou dotazovat do informačního systému TABULE na aktuální data týkající se odjezdových a příjezdových tabulí dopravních bodů na dopravní síti SŽDC, které mohou tato data poskytovat.
 
 \n{2}{Připojení Polohavozu.cz}
 V~první fázi byla napojena datová rozhraní od SŽDC, bohužel neobsahovala všechna potřebná data. Chybějícím prvkem byla poloha, souřadnice GPS potřebná k~určení kde se vůz nachází a~pomoci ni vypočíst zpoždění.
