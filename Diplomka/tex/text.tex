@@ -166,7 +166,7 @@ PostGIS~\cite{postgis} je open source software. Jedná se~o~nadstavbu pro~objekt
 % Pokud Vaše práce neobsahuje analytickou část, stačí odstranit či zakomentovat nasledujících pár rádků
 \cast{Analytická část}
 
-\n{1}{Analýza dispečinkového systému}
+\n{1}{Analýza obecně}
 Analýza je vědecká metoda založená na dekompozici celku na elementární části, je to metoda
 zkoumání složitějších skutečností rozkladem (dissolution) na jednodušší. Cílem analýzy je tedy identifikovat podstatné a nutné vlastnosti elementárních částí celku, poznat jejich podstatu a zákonitosti. Analýza je také způsob výkladu, jestliže oddělujeme jednotlivé jevy a zkoumáme je izolovaně. Opačný postup k analýze se nazývá syntéza. Cílem analýzy u informačních systémů není pouze zdokumentování stávajícího stavu, ale zejména pochopení logiky fungování systému a tím pádem získání výchozích předpokladů pro možnou optimalizaci.
 Cílem analýzy tedy je:
@@ -182,8 +182,38 @@ Analýza by měla postupovat od globálního pohledu k potřebným detailům.
 
 \obr{Pohled L1 na současnou HW architekturu}{fig:HWpohled}{1.0}{graphics/HWpohled.png}
 
-\n{2}{Popis stavu před změnami}
-Stavajici system je založený na komunikaci pomocí zasílání SMS mezi obsluhou vozu (řidič nebo steward) a dispečerem (systém). SMS mají pevnou základní strukturu a zpracovávají se pomocí služby SMS parser, které si v zaslané SMS vybere pevnou strukturu odpovídající spoždění (asi Delay:10). Dále je možné spoždění přímo zadat do systému. Všechny tyto možnosti ukládání dat o spoždění jsou auditovány a je možnost zobrazovat jejich historii.  
+\n{1}{Diferenční analýza}
+
+\n{2}{Popis stávajícího stavu}
+Stavajici system je založený na komunikaci pomocí zasílání SMS mezi obsluhou vozu (řidič nebo steward) a dispečerem (systém). SMS mají pevnou základní strukturu a zpracovávají se pomocí služby SMS parser, které si v zaslané SMS vybere pevnou strukturu odpovídající spoždění (Delay:10). Dále je možné spoždění přímo zadat do systému (Obr.~\ref{fig:addDelay}).
+\obr{vlkádání zpoždění}{fig:addDelay}{0.8}{graphics/addDelay.png}
+
+Všechny tyto možnosti ukládání dat o spoždění jsou auditovány a je možnost zobrazovat jejich historii (Obr.~\ref{fig:auditDelay}).
+
+\obr{audit zpoždění}{fig:auditDelay}{0.4}{graphics/auditDelay.png}
+
+\n{2}{Stanovení cílů (popis cílového stavu)}
+\begin{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
+	\item Automatizovat načítání dat o zpoždění
+	\item Automatizovat načítání informací o zastávkách
+	\item Načítat polohu vozů
+	\item Zpřístupnit informace o zpoždění
+\end{itemize}
+
+\n{2}{Určení rozdílu (mezery) mezi stávajícím a cílovým stavem}
+text
+
+\n{2}{Návrh variant dosažení cílového stavu (alternativní strategie)}
+text
+
+\n{2}{Zhodnocení variant a výběr nevhodnější z nich}
+text
+
+\n{2}{V případě potřeby se celý postup opakuje, dokud není dosaženo cílového stavu}
+text
 
 \n{2}{Popis stavu po změnach}
 I nadále je využíván původní system založený na odesílání SMS s zadaným textem a hodnotou spoždění. Nově jsou pak přidány zdroje dat o poloze a spoždění spojů.
