@@ -149,11 +149,27 @@ PostGIS~\cite{postgis} je open source software. Jedná se~o~nadstavbu pro~objekt
 % Pokud Vaše práce neobsahuje analytickou část, stačí odstranit či zakomentovat nasledujících pár rádků
 \cast{Analytická část}
 
-\n{1}{Analýza stávajícího dispečinkového systému}
-Stavajici system zalozeny na komunikaci pomoci SMS mezi dispecerem a obsluhou vozu (ridic , steward). SMS se parsuji a ukladaji do databaze.
+\n{1}{Analýza dispečinkového systému}
+Analýza je vědecká metoda založená na dekompozici celku na elementární části, je to metoda
+zkoumání složitějších skutečností rozkladem (dissolution) na jednodušší. Cílem analýzy je tedy identifikovat podstatné a nutné vlastnosti elementárních částí celku, poznat jejich podstatu a zákonitosti. Analýza je také způsob výkladu, jestliže oddělujeme jednotlivé jevy a zkoumáme je izolovaně. Opačný postup k analýze se nazývá syntéza. Cílem analýzy u informačních systémů není pouze zdokumentování stávajícího stavu, ale zejména pochopení logiky fungování systému a tím pádem získání výchozích předpokladů pro možnou optimalizaci.
+Cílem analýzy tedy je:
+\begin{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
+	\item Získat znalosti o systému
+	\item Zjistit nedostatky a slabá místa
+	\item Uvědomit si potřebné změny
+\end{itemize}
+Analýza by měla postupovat od globálního pohledu k potřebným detailům.
 
-\n{2}{Podnadpis}
-text
+\obr{Pohled L1 na současnou HW architekturu}{fig:HWpohled}{1.0}{graphics/HWpohled.png}
+
+\n{2}{Popis stavu před změnami}
+Stavajici system je založený na komunikaci pomocí zasílání SMS mezi obsluhou vozu (řidič nebo steward) a dispečerem (systém). SMS mají pevnou základní strukturu a zpracovávají se pomocí služby SMS parser, které si v zaslané SMS vybere pevnou strukturu odpovídající spoždění (asi Delay:10). Dále je možné spoždění přímo zadat do systému. Všechny tyto možnosti ukládání dat o spoždění jsou auditovány a je možnost zobrazovat jejich historii.  
+
+\n{2}{Popis stavu po změnach}
+I nadále je využíván původní system založený na odesílání SMS s zadaným textem a hodnotou spoždění. Nově jsou pak přidány zdroje dat o poloze a spoždění spojů.
 
 \n{1}{Navrhněte technické řešení pro výpočet zpoždění}
 \begin{itemize}
