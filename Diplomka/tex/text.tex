@@ -4,14 +4,13 @@
 
 % ============================================================================ %
 \nn{Úvod}
-Tato diplomová práce je zaměřena na~požadavky dispečinkového systému a~to na~modul zpoždění.
+Tato diplomová práce je zaměřena na~požadavky dispečinkového systému. Z~věší čísti je zaměřená na~výpočet zpoždění, respektice na~modul výpočtu zpoždění.
 
-V~teoretické části je popsáno jaké prostředky jsou v~této práci používány pro~práci a~vývoj.
+Teoretické část se věnuje prostředkům, nástrojům a frameworkům využitých při realizaci této práce.
 
-Ve~třetí kapitole analytické části je popisován systém diferenční analýzou. V~dalších podkapitolách je popsán současný stav a~nový návrh vylepšení stávajícího modulu zpoždění. Jsou zde návrhy variant cílového stavu, jejich vyhodnocení a~výběr nejvhodnějšího z~nich.Ve~čtvrté kapitole je uveden návrh technického řešení pro~výpočet zpoždění.
+Krátký pohled je také věnován analýze systému pomocí diferenční analýzy. V~následujících kapitolách je rozveden jak současný stav, tak možnosti na~vylepšení v~novém modulu zpoždění. Jsou zde~také představeny návrhy variant cílového stavu. Technické řešení následuje ve~čtvrté kapitole.
 
-V~projektové části, v~páté kapitole, je uveden postup prací připojení na~datová rozhraní.
-Šestá kapitola obsahuje popis distribuce zpoždění.
+Závěr práce je věnován projektové části a distribuce zpoždění. Je zde zdrojovými kódy prokládán postup a~popis během realizace prací nejen na~datovém rozhraní.
 
 
 % ============================================================================ %
@@ -330,35 +329,15 @@ Další oblastní zájmu je načtení přijatých a~odfiltrování přebytečný
 \n{1}{Distribuce zpoždění}
 Vypočítané zpoždění spojů je vystaveno pomocí webové služby (REST) a~je konzumováno cílovými platformami. Základní platforma jsou Plazmy (současné digitální informační tabule na provozních místech Student Agency). Dále je zpoždění konzumováno splečností Google v rámci služby Google Transit (pro realizaci je použito napojení na~GTFS-real time). Zákazníkům, kteří mají povolené v~osobním nastavení notifikace (SMS případně email) chodí průběžné informace o~aktuálních změnách zpoždění spojů, na~které mají zakoupený lístek.
 
-\n{2}{Zobrazení zpoždění spoje}
-\begin{itemize}
-	\setlength{\parskip}{0pt}
-	\setlength{\itemsep}{0pt}
-	\setstretch{1.05}
-	\item Využít stávající funkci pro~zobrazování na~Plazmy
-	\item Zasílaní SMS a~mailu o~zpoždění pro~jednotlivé prodejce a~dispečery podle skupin
-\end{itemize}
-
-\n{2}{Zobrazení údajů o zpoždění}
-\begin{itemize}
-	\setlength{\parskip}{0pt}
-	\setlength{\itemsep}{0pt}
-	\setstretch{1.05}
-	\item Tvorba nového endpontu pro real-time GTFS
-	\item GTFS-RT musí obsahovat stejné identifikátory jako statické GTFS
-	\item Google Protokolbuffer
-	\item Připojení načítání zpoždění a poloha GPS
-\end{itemize}
-
 % ============================================================================ %
 \nn{Závěr}
-Cílem této diplomové práce bylo analyzovat stávající řešení dispečinkového systému. Navrhnout nové rozšíření variant již existujícího modulu zpoždění. Vybrat ta nejlepší řešení a implementovat je do systému. Dále pak navrhnout technické řešení pro výpočet zpoždění a vytvořit datové rozhraní pro přístup třetích stran k údajům o zpoždění.
+Cíle této diplomové práce, rozšířit dispečinkový systém, bylo dosaženo. Některé části této práce se podařilo nejen realizovat, ale také výslednou implementaci aplikovat do produkčního provozu. Hlavní přínos je vystavení webových služeb pro~poskytování dat o~zpoždění třetím stranám. Dále nově systém sám konzumuje řadu výstupů systémů třetích stran (SŽDC, Polohavozu.cz). 
 
-Z časových důvodu a přehodnocení priority úkolů nebyla dokončena část diplomové práce realizující vizualizaci spoje na trase.
+Jiné části zůstali ve fázi návrhu. Jedná se především~o vizualizaci spoje na~trase. Tato funkcionalita nedostala dostatečnou součinnost a~to především proto, že podobných vizualizačních SW a nástrojů aj. je velké množství a jejich funkcionalita je dostatečná.
 
-Výsledkem práce je tedy rozšíření modulu zpoždění o nové zdroje dat a zpřenění zpoždění. K dalším rozšířením patří načítaní struktury vlakové soupravy a určení polohy jednotlivých vozů pomocí GPS. Všechny nové data jsou pak zpracovány a dal ditribuovány.
+Výsledkem práce je tedy rozšíření modulu zpoždění o nové zdroje dat a řádové zpřesnění zpoždění. K~dalším rozšířením patří načítaní struktury vlakové soupravy a~určení polohy jednotlivých vozů pomocí GPS. Všechny nová data jsou zpracovány a~dále distribuovány.
 
-Řešení popsané v této diplomové práci ještě není kompletní a nabízí spostu možností úprav a vylepšení. To nejdůležitější jsou ale praktické zkušenosti a prohloubení znalostí při realizaci této diplomové práce.
+Řešení popsané v této diplomové práci nabízí řadu možností na rozšíření či úpravy.
 
 
 % ============================================================================ %
