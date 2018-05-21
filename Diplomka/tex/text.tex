@@ -209,24 +209,27 @@ Napojení nového zdroje informací o~zpoždění (SŽDC). Napojení nového zdr
 Chybí napojeni na rozhrani SŽDC (GRAPP a Informační Tabule). Napojení na server Polohavozu.cz k načítaní GPS souřadnic. Načítaní struktury vlakových spojení. Doplnit nové funkce pro distribuci zpoždění.
 
 \n{2}{Návrh variant dosažení cílového stavu (alternativní strategie)}
-text
-
-\n{2}{Zhodnocení variant a výběr nevhodnější z nich}
-text
+Spoje je nutné osadit technikou pro možnost sběru informací o poloze. Spoje je dále nutné napojit na servery agregující data o poloze. Agregovaná data musí být dále vyhodnocena pro~potřeby výpočtu zpoždění.
 
 \n{2}{Popis stavu po~změnách}
 I~nadále je využíván původní systém založený~na odesílání SMS s~zadaným textem a~hodnotou zpoždění. Nově jsou pak přidány zdroje dat o~poloze a~zpoždění spojů.
 
 \n{1}{Navrhněte technické řešení pro~výpočet zpoždění}
-\begin{itemize}
-	\item Definovat (základní) trasu spoje pomocí GPS souřadnic.
-	\item Tuto trasu rozdělit na~trasy mezi zastávkami (aby nebyl příliš velký počet souřadnic).
-	\item Pomocí trasování spoje (napojení na~polohavozu.cz) získat souřadnice GPS a~čas kdy byli tyto data pořízeny.
-	\item Vytvořit modelovou trasu spoje s~časem.
-	\item Porovnat modelové trasy spoje a~aktuální pozice vozu. Na~základě porovnání stanovit zpoždění.
-	\item Využít PostGIS k~vracení nejbližší souřadnice, u~této souřadnice vyhodnotit známý čas průjezdu.
-	\item Zpoždění uložit do~databáze.
-\end{itemize}
+
+\n{2}{Trasa spoje}
+Trasu spoje lze popsat pomocí definovaného datového formátu KML (Obr.~\ref{fig:kml}). Zjednodušeně jde~o řadu GPS souřadnic, která popisuje konkrétní trasu spoje veřejné dopravy. Takto uchovaná data o~trase spoje jsou výhodná jak pro budoucí distribuci mapovým systémům třetích stran, tak jsou plně dostačující pro interní potřeby správy a~vizualizace spojena na mapovém podkladu.
+
+\obr{Náhled spoje trasovaného pomocí KML na mapy.cz}{fig:kml}{1.0}{graphics/kml.jpg}
+
+\n{2}{Definovat (základní) trasu spoje pomocí GPS souřadnic.}
+Spoj se může za~mimořádných okolností vychýlit z~plánované trasy. Pro tyto účely je nezbytné mít nadefinovanou plánovanou trasu, popsanou pomocí GPS souřadnic s~dostatečnou hustotou pro následné vyhodnocení odchylky (jak v~prostoru, tak v~čase).
+
+Pro snazší správu a~údržbu (nejen tras) je více než vhodné trasu rozdělit na~dílčí celky. Nabízí se rozdělit ji na~úseky mezi zastávkami (aby nebyl příliš velký počet souřadnic).
+
+Realizace trasování spojů proběhne pomocí serveru polohavozu.cz, který agreguje data o poloze spojů. Tyto agregovaná data vystavuje pomocí REST API s dostatečnou propustností na~dotaz o~poloze spoje jednou za~sekundu. Spolu s~GPS bude uložen i~čas pořízení GPS, který odpovídá referenčnímu času vůči uražené vzdálenosti na~trase.
+
+\n{2}{Výpočet zpoždění}
+Na~základě referenčních hodnot a~aktuálních dat o~spoji z~provozu na~právě sledované trase již lze snadno získat zpoždění daného spoje. Při realizaci je nutné řešit problematiku jednak prostorového uspořádání GIS obecně, ale také nepřesnost užitých zařízení. Naměřená data je nutné nejprve normalizovat a~až následně použít jako vstup do mapových funkcí pro výpočet vzdálenosti od referenčního bodu. Využití PostGIS k~vracení nejbližší souřadnice tento výpočet velmi usnadňuje. Zároveň také poslouží pro~samotné uložení do~DB.
 
 % ============================================================================ %
 \cast{Projektová část}
@@ -248,7 +251,6 @@ Prvním z~nich je datové rozhraní GRAPP~(Obr.~\ref{fig:grapp}), ze~kterého se
 je první v~pořadí (Kod.~\ref{uprava-pom-szdc-position.xml}). Pom.xml je soubor, do~kterého je třeba doplnit novou část kódu v~sekci \textit{plugin}. Pomocí tohoto přidaného kódu pak~při~opětovném sestavení projektu (s~použitím Mavenu) dojde k~autogenerování tříd datového rozhraní GRAPP, které pak~využijeme pro~načítání dat.
 
 \script{uprava-pom-szdc-position.xml}{xml}
-Následuje tvorba interface providera (Kod.~\ref{SzdcProvider.java}) a~komunikačních přepravek. (Obr.~\ref{fig:szdc-position-models}).
 
 \n{4}{Interface providera} se tvoří jako další krok (Kod.~\ref{SzdcProvider.java}) a~dále komunikační přepravky (Obr.~\ref{fig:szdc-position-models}).
  	
@@ -290,10 +292,6 @@ V~první fázi byla napojena datová rozhraní od~SŽDC, bohužel neobsahovala v
 \script{PositionDO.java}{Java}
 \script{TrackedVehiclePathDO.java}{Java}
 \script{VehicleInfoDO.java}{Java}
-	
-\n{4}{tvorba CRON JOBu} pro pravidelný update
-\n{4}{Nedokonceno}
-
 
 \n{2}{Načítaní struktury vlaku do~dispečerského systému}
 Pro správné dotazování se na~polohu vozů, je třeba nejprve získat strukturu složení vlaku. Jedna se o~aktuální zapojení vagonů. Načítá se bude identifikátor vagonu (jedinečná stringová hodnota). Takto identifikované vozy pak~jsou přiřazeny jednotlivým spojům a~uloženy do~databáze. Podle nich lze přesně získat data o~poloze.
@@ -311,41 +309,41 @@ Pro správné dotazování se na~polohu vozů, je třeba nejprve získat struktu
 \script{TrainCompositionDO.java}{Java}
 \script{WagonDO.java}{Java}
 	
-\n{4}{Vytvoření mailu}~pro odebírání Excel souboru se strukturou vlaku rozepsanou na den
-\n{4}{Připojení se na tuto mailovou adresu} pomocí JavaMail knihovny
+\n{4}{JavaMail knihovna} slouží pro~napojení na vytvořenou emailovou schránku pomocí IMAP protokolu, odebírání excelových souboru se~strukturou vlaku na~aktuální den.
 	
 \script{TrafficControlMailDownloader.java}{Java}
 	
-\n{4}{Načtení přijatých a~odfiltrování přebytečných mailů}, které jsou buď staré nebo neobsahuji přílohu
-\n{4}{Otevření přílohy a~načtení excelového souboru}
-\n{4}{Otevřeni pracovního sešitu a~načtení dat z~excelových buněk do CSV souboru}
+Další oblastní zájmu je načtení přijatých a~odfiltrování přebytečných mailů, které jsou buď staré nebo neobsahuji potřebnou přílohu. Dále aplikační logika nezbytná k otevření přílohy a~načtení excelového souboru do streamu pro následné zpracování. Poslední částí zpracování excelu je konverze pracovních dat (vybraných buněk) do~formátu CSV.
 	
 \script{ExcelToCsvConverter.java}{Java}
 	
-	
-\n{4}{Dao funkce} (Hibenate dotaz do DB), využiti stávajících funkcí
-\n{4}{Tvorba service} (inteface, implementace) -> Tady je největší zajímavost a to využití funkcionálního inteface z Java8~\cite{java8}
+\n{4}{Tvorba service} již není tak obsahově svázaná. Striktní definici podlého jen interface. Jeho implementace je již plně modifikovatelná. Lze využít např. funkcionálního inteface~z Java8~\cite{java8}. Přístup k~DB je odstíněný pomocí DAO. Lze plně využít stávajících funkcí pro~správu dat. Veškeré DB operace jsou zprostředkovány pomocí Hibenate.
 	
 \script{TrafficControlService.java}{Java}
 \script{TrafficControlServiceImpl.java}{Java}
 	
-\n{4}{Pomocí stávajících funkcí uložíme data do DB}
 \n{4}{Tvorba CRON jobu} pro pravidelnou aktualizaci
 	
 \script{applicationContext-cron-Struktura.xml}{xml}
 	
 
 \n{1}{Distribuce zpoždění}
-Plazmy, GTFS-real time, SMS, mail
+Vypočítané zpoždění spojů je vystaveno pomocí webové služby (REST) a~je konzumováno cílovými platformami. Základní platforma jsou Plazmy (současné digitální informační tabule na provozních místech Student Agency). Dále je zpoždění konzumováno splečností Google v rámci služby Google Transit (pro realizaci je použito napojení na~GTFS-real time). Zákazníkům, kteří mají povolené v~osobním nastavení notifikace (SMS případně email) chodí průběžné informace o~aktuálních změnách zpoždění spojů, na~které mají zakoupený lístek.
 
-\n{2}{Zobrazení na zpoždění spoje}
+\n{2}{Zobrazení zpoždění spoje}
 \begin{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
 	\item Využít stávající funkci pro~zobrazování na~Plazmy
 	\item Zasílaní SMS a~mailu o~zpoždění pro~jednotlivé prodejce a~dispečery podle skupin
 \end{itemize}
 
 \n{2}{Zobrazení údajů o zpoždění}
 \begin{itemize}
+	\setlength{\parskip}{0pt}
+	\setlength{\itemsep}{0pt}
+	\setstretch{1.05}
 	\item Tvorba nového endpontu pro real-time GTFS
 	\item GTFS-RT musí obsahovat stejné identifikátory jako statické GTFS
 	\item Google Protokolbuffer
